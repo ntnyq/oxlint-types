@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "streetsidesoftware.code-spell-checker",
+    "editorconfig.editorconfig",
+    "typescriptteam.native-preview",
+    "oxc.oxc-vscode"
+  ]
+}

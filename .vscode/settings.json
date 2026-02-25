@@ -1,0 +1,16 @@
+{
+  "oxc.enable": true,
+  "eslint.enable": false,
+  "prettier.enable": false,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "oxc.oxc-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.oxc": "explicit"
+  },
+  "files.associations": {
+    ".oxlintrc.json": "jsonc"
+  },
+  "typescript.experimental.useTsgo": true,
+  "cSpell.words": ["bumpp", "esbuild", "oxfmt", "oxlint", "Shinigami", "tsgo"],
+  "cSpell.allowCompoundWords": true
+}

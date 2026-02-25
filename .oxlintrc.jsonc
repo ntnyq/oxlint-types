@@ -1,0 +1,112 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": [
+    "eslint",
+    "import",
+    "jsdoc",
+    "node",
+    "promise",
+    "oxc",
+    "typescript",
+    "unicorn",
+  ],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn",
+    "pedantic": "warn",
+    "perf": "warn",
+    "style": "warn",
+    "restriction": "warn",
+  },
+  "ignorePatterns": ["**/dist/**", "**/node_modules/**", "**/fixtures/**"],
+  "rules": {
+    "import/group-exports": "off",
+    "import/exports-last": "off",
+    "import/no-named-export": "off",
+    "import/prefer-default-export": "off",
+    "id-length": [
+      "warn",
+      {
+        "min": 2,
+        "max": 50,
+        "properties": "never",
+        "exceptions": [
+          // Compare
+          "a",
+          "b",
+          // Loop
+          "i",
+          "v",
+          // Generic types
+          "T",
+          // Unused vars
+          "_",
+          "$",
+        ],
+      },
+    ],
+    "func-style": ["warn", "declaration", { "allowArrowFunctions": true }],
+    "no-magic-numbers": [
+      "warn",
+      {
+        "ignore": [0, 1, -1, 2, 10, 100, 1000],
+        "ignoreArrayIndexes": true,
+        "enforceConst": true,
+        "detectObjects": false,
+      },
+    ],
+  },
+  "overrides": [
+    {
+      "files": ["scripts/**/*.{js,ts}"],
+      "rules": {
+        "import/no-nodejs-modules": "off",
+        "import/prefer-default-export": "off",
+        "import/no-named-export": "off",
+      },
+    },
+    {
+      "files": ["**/*.config.{ts,mjs}"],
+      "rules": {
+        "new-cap": "off",
+        "sort-keys": "warn",
+        "import/no-default-export": "off",
+        "import/no-nodejs-modules": "off",
+      },
+    },
+    {
+      "files": ["*.d.ts"],
+      "rules": {
+        // to extend existing modules, import/export must not appear in declaration files at top level
+        "import/unambiguous": "off",
+        // we need `export {}` to convert a file to a module
+        "unicorn/require-module-specifiers": "off",
+      },
+    },
+    {
+      "files": ["*.{spec,test}.{js,ts,tsx}", "*.{spec,test}-d.{ts,tsx}"],
+      "plugins": ["vitest"],
+      "rules": {
+        "id-length": "off",
+        "max-classes-per-file": "off",
+        "max-lines-per-function": "off",
+        "max-lines": "off",
+        "max-statements": "off",
+        "no-magic-numbers": "off",
+        "no-empty-function": "off",
+        "no-undefined": "off",
+        "import/no-nodejs-modules": "off",
+        "typescript/ban-ts-comment": "off",
+        "typescript/no-non-null-assertion": "off",
+        "typescript/prefer-ts-expect-error": "off",
+        "typescript/require-array-sort-compare": "off",
+        "vitest/no-importing-vitest-globals": "off",
+        "vitest/require-test-timeout": "off",
+        "vitest/consistent-test-it": "off",
+        "vitest/prefer-expect-assertions": "off",
+        "vitest/prefer-lowercase-title": "off",
+        "vitest/require-top-level-describe": "off",
+      },
+    },
+  ],
+}
