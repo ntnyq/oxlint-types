@@ -1,5 +1,3 @@
-/* oxlint-disable import/no-relative-parent-imports */
-
 import { expect, it } from 'vitest'
 import { defineConfig } from '../src'
 

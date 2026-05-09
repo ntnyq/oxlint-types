@@ -23,12 +23,20 @@
     "capitalized-comments": "off",
     "sort-imports": "off",
     "no-continue": "off",
+    "no-ternary": "off",
+    "sort-keys": "off",
+    "no-undefined": "off",
+    "no-await-in-loop": "off",
     "prefer-destructuring": "off",
     "import/group-exports": "off",
     "import/exports-last": "off",
     "import/no-named-export": "off",
     "import/prefer-default-export": "off",
     "import/no-relative-parent-imports": "off",
+    "jsdoc/require-returns-type": "off",
+    "jsdoc/require-param-type": "off",
+    "oxc/no-async-await": "off",
+    "oxc/no-optional-chaining": "off",
     "unicorn/no-abusive-eslint-disable": "off",
     "id-length": [
       "warn",
@@ -60,6 +68,10 @@
     "max-lines-per-function": [
       "warn",
       { "skipBlankLines": true, "skipComments": true, "max": 200 },
+    ],
+    "no-duplicate-imports": [
+      "warn",
+      { "includeExports": false, "allowSeparateTypeImports": true },
     ],
     "no-magic-numbers": [
       "warn",

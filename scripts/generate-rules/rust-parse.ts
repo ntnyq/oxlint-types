@@ -1,4 +1,4 @@
-/* oxlint-disable import/no-nodejs-modules, no-async-await, no-await-in-loop, no-optional-chaining, no-null, no-ternary, no-undefined, sort-keys, require-unicode-regexp, no-magic-numbers, no-use-before-define, complexity, max-statements, jsdoc/require-param, jsdoc/require-returns */
+/* oxlint-disable no-null, complexity, max-statements */
 
 import {
   applyRenameAll,
@@ -13,7 +13,15 @@ import {
 } from './rust-utils'
 import type { RustDefinition, RustTypeContext } from './types'
 
-/** Parses top-level Rust struct/enum definitions from source text. */
+type RustTypeToTsFn = (typeText: string, ctx: RustTypeContext) => string
+
+let rustTypeToTsImpl: RustTypeToTsFn = () => 'unknown'
+
+/**
+ * Parses top-level Rust struct/enum definitions from source text.
+ * @param source Rust source text.
+ * @returns Map of definition name to parsed Rust declaration metadata.
+ */
 export function parseRustDefinitions(
   source: string,
 ): Map<string, RustDefinition> {
@@ -77,7 +85,11 @@ export function parseRustDefinitions(
   return definitions
 }
 
-/** Parses Rust `type Foo = Bar` aliases for later type resolution. */
+/**
+ * Parses Rust `type Foo = Bar` aliases for later type resolution.
+ * @param source Rust source text.
+ * @returns Map of alias name to aliased Rust type text.
+ */
 export function parseRustTypeAliases(source: string): Map<string, string> {
   const aliases = new Map<string, string>()
   const aliasRegex =
@@ -138,9 +150,9 @@ function convertStructToTs(
       return 'never'
     }
     if (parts.length === 1 && parts[0]) {
-      return rustTypeToTs(parts[0], ctx)
+      return rustTypeToTsImpl(parts[0], ctx)
     }
-    const tuple = parts.map(part => rustTypeToTs(part, ctx)).join(', ')
+    const tuple = parts.map(part => rustTypeToTsImpl(part, ctx)).join(', ')
     return `readonly [${tuple}]`
   }
 
@@ -167,7 +179,7 @@ function convertStructToTs(
     const fieldName = fieldMatch[1]
     const fieldTypeText = cleanupRustType(fieldMatch[2])
     const optionInner = unwrapTypeWrapper(fieldTypeText, 'Option')
-    const tsType = rustTypeToTs(optionInner ?? fieldTypeText, ctx)
+    const tsType = rustTypeToTsImpl(optionInner ?? fieldTypeText, ctx)
     const serializedName =
       extractRename(attrs) ?? applyRenameAll(fieldName, renameAll)
 
@@ -221,7 +233,7 @@ function resolveNamedType(
   if (!definition) {
     const alias = ctx.typeAliases.get(typeName)
     if (alias) {
-      const resolvedAlias = rustTypeToTs(alias, ctx)
+      const resolvedAlias = rustTypeToTsImpl(alias, ctx)
       ctx.cache.set(typeName, resolvedAlias)
       return resolvedAlias
     }
@@ -235,7 +247,12 @@ function resolveNamedType(
   return resolved
 }
 
-/** Converts a Rust type expression into a TypeScript type expression. */
+/**
+ * Converts a Rust type expression into a TypeScript type expression.
+ * @param typeText Rust type expression.
+ * @param ctx Shared conversion context with parsed definitions and cache.
+ * @returns Converted TypeScript type expression.
+ */
 export function rustTypeToTs(typeText: string, ctx: RustTypeContext): string {
   const normalized = cleanupRustType(typeText)
     .replaceAll(/\bself::/gu, '')
@@ -266,22 +283,22 @@ export function rustTypeToTs(typeText: string, ctx: RustTypeContext): string {
 
   const optionInner = unwrapTypeWrapper(normalized, 'Option')
   if (optionInner) {
-    return rustTypeToTs(optionInner, ctx)
+    return rustTypeToTsImpl(optionInner, ctx)
   }
 
   const boxInner = unwrapTypeWrapper(normalized, 'Box')
   if (boxInner) {
-    return rustTypeToTs(boxInner, ctx)
+    return rustTypeToTsImpl(boxInner, ctx)
   }
 
   const vecInner = unwrapTypeWrapper(normalized, 'Vec')
   if (vecInner) {
-    return `readonly (${rustTypeToTs(vecInner, ctx)})[]`
+    return `readonly (${rustTypeToTsImpl(vecInner, ctx)})[]`
   }
 
   if (/^(HashMap|BTreeMap)\s*</u.test(normalized)) {
     const args = splitGenericArguments(normalized)
-    const valueType = args[1] ? rustTypeToTs(args[1], ctx) : 'unknown'
+    const valueType = args[1] ? rustTypeToTsImpl(args[1], ctx) : 'unknown'
     return `Record<string, ${valueType}>`
   }
 
@@ -297,13 +314,15 @@ export function rustTypeToTs(typeText: string, ctx: RustTypeContext): string {
     if (!inner) {
       return 'never'
     }
-    const parts = splitTopLevel(inner, ',').map(part => rustTypeToTs(part, ctx))
+    const parts = splitTopLevel(inner, ',').map(part =>
+      rustTypeToTsImpl(part, ctx),
+    )
     return `readonly [${parts.join(', ')}]`
   }
 
   const arrayMatch = normalized.match(/^\[([\s\S]+);\s*\d+\]$/u)
   if (arrayMatch?.[1]) {
-    return `readonly (${rustTypeToTs(arrayMatch[1], ctx)})[]`
+    return `readonly (${rustTypeToTsImpl(arrayMatch[1], ctx)})[]`
   }
 
   const simpleName = normalized
@@ -320,7 +339,13 @@ export function rustTypeToTs(typeText: string, ctx: RustTypeContext): string {
   return resolved ?? 'unknown'
 }
 
-/** Extracts the config type name from a `declare_oxc_lint!` macro call. */
+rustTypeToTsImpl = rustTypeToTs
+
+/**
+ * Extracts the config type name from a `declare_oxc_lint!` macro call.
+ * @param source Rust source text.
+ * @returns Config type name, or null when not declared.
+ */
 export function extractConfigTypeName(source: string): string | null {
   const match = source.match(
     /declare_oxc_lint!\([\s\S]*?config\s*=\s*([A-Za-z_][A-Za-z0-9_:]*)/u,
@@ -332,7 +357,12 @@ export function extractConfigTypeName(source: string): string | null {
   return configPath.split('::').at(-1) ?? null
 }
 
-/** Parses TypeScript option type from one or more Rust source chunks. */
+/**
+ * Parses TypeScript option type from one or more Rust source chunks.
+ * @param mainSource Main rule Rust source text.
+ * @param extraSources Additional sibling Rust source texts.
+ * @returns Parsed TypeScript option type, or `never` when unavailable.
+ */
 export function parseRuleOptionsTypeFromRust(
   mainSource: string,
   extraSources: string[] = [],

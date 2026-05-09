@@ -1,5 +1,3 @@
-/* oxlint-disable import/no-nodejs-modules, no-async-await, no-await-in-loop, no-optional-chaining, no-null, no-ternary, no-undefined, sort-keys, require-unicode-regexp, no-magic-numbers, jsdoc/require-param, jsdoc/require-returns */
-
 import { FALLBACK_OPTION_TYPES } from './constants'
 import {
   fetchFirstAvailableRuleSource,
@@ -10,7 +8,12 @@ import {
 import { parseRuleOptionsTypeFromRust } from './rust-parse'
 import type { ParsedRules } from './types'
 
-/** Applies post-parse fallback patches for unresolved or known malformed rules. */
+/**
+ * Applies post-parse fallback patches for unresolved or known malformed rules.
+ * @param namespacedRuleName Fully-qualified rule name, e.g. plugin/rule.
+ * @param optionType Parsed TypeScript option type string.
+ * @returns Patched option type string used for generated output.
+ */
 export function applyOptionTypeFallback(
   namespacedRuleName: string,
   optionType: string,
@@ -28,7 +31,11 @@ export function applyOptionTypeFallback(
   )
 }
 
-/** Builds a map of rule name to TypeScript option type by parsing Rust sources. */
+/**
+ * Builds a map of rule name to TypeScript option type by parsing Rust sources.
+ * @param parsed Parsed rule metadata from oxlint JSON output.
+ * @returns Map from rule aliases to generated TypeScript option type strings.
+ */
 export async function buildRuleOptionsByRuleName(
   parsed: ParsedRules,
 ): Promise<Record<string, string>> {

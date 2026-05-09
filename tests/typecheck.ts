@@ -1,5 +1,3 @@
-/* oxlint-disable import/no-relative-parent-imports, import/no-duplicates, no-duplicate-imports */
-
 import { defineConfig } from '../src'
 import type { BuiltinRuleOptionsByName, RuleMap } from '../src'
 

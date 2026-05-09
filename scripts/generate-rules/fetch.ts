@@ -1,4 +1,4 @@
-/* oxlint-disable import/no-nodejs-modules, no-async-await, no-await-in-loop, no-optional-chaining, no-null, no-ternary, no-undefined, sort-keys, require-unicode-regexp, no-magic-numbers, jsdoc/require-param, jsdoc/require-returns */
+/* oxlint-disable no-null */
 
 import { toSnakeCase } from './case-utils'
 import {
@@ -9,7 +9,11 @@ import {
 } from './constants'
 import type { CanonicalRule, RuleSource } from './types'
 
-/** Builds all fetch URL candidates for one rule source. */
+/**
+ * Builds all fetch URL candidates for one rule source.
+ * @param rule Canonical rule metadata from oxlint output.
+ * @returns Candidate Rust file URLs to try in order.
+ */
 export function getRustRuleUrlCandidates(rule: CanonicalRule): string[] {
   const pluginSource = rule.pluginSource
   const rustRuleName = toSnakeCase(rule.ruleName)
@@ -19,7 +23,11 @@ export function getRustRuleUrlCandidates(rule: CanonicalRule): string[] {
   ]
 }
 
-/** Fetches the first available Rust source among candidate URLs. */
+/**
+ * Fetches the first available Rust source among candidate URLs.
+ * @param rule Canonical rule metadata from oxlint output.
+ * @returns Downloaded Rust source payload, or null when all candidates fail.
+ */
 export async function fetchFirstAvailableRuleSource(
   rule: CanonicalRule,
 ): Promise<RuleSource | null> {
@@ -47,7 +55,12 @@ export async function fetchFirstAvailableRuleSource(
   return null
 }
 
-/** Extracts likely option/config sibling module URLs for `mod.rs` rules. */
+/**
+ * Extracts likely option/config sibling module URLs for `mod.rs` rules.
+ * @param ruleFileUrl Current rule Rust source URL.
+ * @param source Rust source text from the current rule file.
+ * @returns Candidate sibling module URLs that may define option/config structs.
+ */
 export function getRuleModuleSiblingUrls(
   ruleFileUrl: string,
   source: string,
@@ -66,7 +79,11 @@ export function getRuleModuleSiblingUrls(
   return modules.map(moduleName => `${dir}${moduleName}.rs`)
 }
 
-/** Fetches optional extra Rust source files that may contain config definitions. */
+/**
+ * Fetches optional extra Rust source files that may contain config definitions.
+ * @param urls Candidate sibling Rust module URLs.
+ * @returns Successfully downloaded source texts in input order.
+ */
 export async function fetchOptionalSources(urls: string[]): Promise<string[]> {
   const texts: string[] = []
   for (const url of urls) {
@@ -88,7 +105,12 @@ export async function fetchOptionalSources(urls: string[]): Promise<string[]> {
   return texts
 }
 
-/** Runs async tasks with fixed-width concurrency. */
+/**
+ * Runs async tasks with fixed-width concurrency.
+ * @param items Items to process.
+ * @param worker Async worker called once per item.
+ * @returns Promise that resolves after all items are processed.
+ */
 export async function runPool<T>(
   items: T[],
   worker: (item: T) => Promise<void>,

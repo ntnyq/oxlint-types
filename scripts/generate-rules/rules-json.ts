@@ -1,9 +1,11 @@
-/* oxlint-disable import/no-nodejs-modules, no-async-await, no-await-in-loop, no-optional-chaining, no-null, no-ternary, no-undefined, sort-keys, require-unicode-regexp, no-magic-numbers, jsdoc/require-param, jsdoc/require-returns */
-
 import { cleanRuleName, normalizePlugin } from './case-utils'
 import type { CanonicalRule, ParsedRules, RuleItem } from './types'
 
-/** Parses `oxlint --rules -f json` output into normalized generator metadata. */
+/**
+ * Parses `oxlint --rules -f json` output into normalized generator metadata.
+ * @param input Raw JSON text from oxlint CLI output.
+ * @returns Parsed and normalized metadata used by code generation.
+ */
 export function parseRulesJson(input: string): ParsedRules {
   const rules = JSON.parse(input) as RuleItem[]
   const canonicalByName = new Map<string, CanonicalRule>()

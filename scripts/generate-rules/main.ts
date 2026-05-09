@@ -1,4 +1,4 @@
-/* oxlint-disable import/no-nodejs-modules, no-async-await, no-await-in-loop, no-optional-chaining, no-null, no-ternary, no-undefined, sort-keys, require-unicode-regexp, no-magic-numbers, jsdoc/require-param, jsdoc/require-returns */
+/* oxlint-disable no-async-await, no-await-in-loop, no-optional-chaining, no-null, no-ternary, no-undefined, sort-keys, require-unicode-regexp, no-magic-numbers */
 
 import { execSync } from 'node:child_process'
 import fs from 'node:fs'
@@ -9,7 +9,10 @@ import { buildRuleOptionsByRuleName } from './options'
 import { writePluginFiles } from './output'
 import { parseRulesJson } from './rules-json'
 
-/** Runs the full rule generation pipeline and writes generated files. */
+/**
+ * Runs the full rule generation pipeline and writes generated files.
+ * @returns Promise that resolves after all generated files are written.
+ */
 export async function generateRules(): Promise<void> {
   const tmpConfigPath = path.join(
     os.tmpdir(),

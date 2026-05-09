@@ -1,5 +1,3 @@
-/* oxlint-disable import/no-nodejs-modules, no-async-await, no-await-in-loop, no-optional-chaining, no-null, no-ternary, no-undefined, sort-keys, require-unicode-regexp, no-magic-numbers, jsdoc/require-param, jsdoc/require-returns */
-
 /** A raw rule entry returned by `oxlint --rules -f json`. */
 export interface RuleItem {
   scope: string

@@ -1,88 +1,152 @@
-/* oxlint-disable import/no-nodejs-modules, no-async-await, no-await-in-loop, no-optional-chaining, no-null, no-ternary, no-undefined, sort-keys, require-unicode-regexp, no-magic-numbers, jsdoc/require-param, jsdoc/require-returns, complexity, max-statements */
+/* oxlint-disable no-null */
+
+type StringMode = 'single' | 'double' | null
+
+interface NestingState {
+  depthAngle: number
+  depthParen: number
+  depthBrace: number
+  depthBracket: number
+  inString: StringMode
+}
+
+function createNestingState(): NestingState {
+  return {
+    depthAngle: 0,
+    depthParen: 0,
+    depthBrace: 0,
+    depthBracket: 0,
+    inString: null,
+  }
+}
+
+function getStringStart(char: string): Exclude<StringMode, null> | null {
+  if (char === "'") {
+    return 'single'
+  }
+  if (char === '"') {
+    return 'double'
+  }
+  return null
+}
+
+function updateStringState(
+  state: NestingState,
+  char: string,
+  prev: string,
+): boolean {
+  if (!state.inString) {
+    const start = getStringStart(char)
+    if (!start) {
+      return false
+    }
+    state.inString = start
+    return true
+  }
+
+  if (
+    (state.inString === 'single' && char === "'" && prev !== '\\') ||
+    (state.inString === 'double' && char === '"' && prev !== '\\')
+  ) {
+    state.inString = null
+  }
+
+  return true
+}
+
+function adjustDepth(value: number, delta: number): number {
+  return Math.max(0, value + delta)
+}
+
+function updateNestingDepth(state: NestingState, char: string): void {
+  if (char === '<') {
+    state.depthAngle += 1
+    return
+  }
+  if (char === '>') {
+    state.depthAngle = adjustDepth(state.depthAngle, -1)
+    return
+  }
+  if (char === '(') {
+    state.depthParen += 1
+    return
+  }
+  if (char === ')') {
+    state.depthParen = adjustDepth(state.depthParen, -1)
+    return
+  }
+  if (char === '{') {
+    state.depthBrace += 1
+    return
+  }
+  if (char === '}') {
+    state.depthBrace = adjustDepth(state.depthBrace, -1)
+    return
+  }
+  if (char === '[') {
+    state.depthBracket += 1
+    return
+  }
+  if (char === ']') {
+    state.depthBracket = adjustDepth(state.depthBracket, -1)
+  }
+}
+
+function isTopLevel(state: NestingState): boolean {
+  return (
+    state.depthAngle === 0 &&
+    state.depthParen === 0 &&
+    state.depthBrace === 0 &&
+    state.depthBracket === 0
+  )
+}
+
+function pushPart(parts: string[], value: string): void {
+  const trimmed = value.trim()
+  if (trimmed) {
+    parts.push(trimmed)
+  }
+}
 
 /**
  * Splits a string by a delimiter while keeping nested generic/tuple/map sections intact.
+ * @param input Source text to split.
+ * @param delimiter Delimiter character at top-level nesting only.
+ * @returns Trimmed parts split at top-level delimiter occurrences.
  */
 export function splitTopLevel(input: string, delimiter: string): string[] {
   const parts: string[] = []
+  const state = createNestingState()
   let current = ''
-  let depthAngle = 0
-  let depthParen = 0
-  let depthBrace = 0
-  let depthBracket = 0
-  let inString: 'single' | 'double' | null = null
 
   for (let index = 0; index < input.length; index += 1) {
-    const char = input[index]
-    const prev = input[index - 1]
+    const char = input[index] ?? ''
+    const prev = input[index - 1] ?? ''
 
-    if (inString) {
-      current += char
-      if (
-        (inString === 'single' && char === "'" && prev !== '\\') ||
-        (inString === 'double' && char === '"' && prev !== '\\')
-      ) {
-        inString = null
-      }
-      continue
-    }
-
-    if (char === "'") {
-      inString = 'single'
-      current += char
-      continue
-    }
-    if (char === '"') {
-      inString = 'double'
-      current += char
-      continue
-    }
-
-    if (char === '<') {
-      depthAngle += 1
-    } else if (char === '>') {
-      depthAngle = Math.max(0, depthAngle - 1)
-    } else if (char === '(') {
-      depthParen += 1
-    } else if (char === ')') {
-      depthParen = Math.max(0, depthParen - 1)
-    } else if (char === '{') {
-      depthBrace += 1
-    } else if (char === '}') {
-      depthBrace = Math.max(0, depthBrace - 1)
-    } else if (char === '[') {
-      depthBracket += 1
-    } else if (char === ']') {
-      depthBracket = Math.max(0, depthBracket - 1)
-    }
-
-    if (
-      char === delimiter &&
-      depthAngle === 0 &&
-      depthParen === 0 &&
-      depthBrace === 0 &&
-      depthBracket === 0
-    ) {
-      const part = current.trim()
-      if (part) {
-        parts.push(part)
-      }
-      current = ''
-      continue
-    }
-
+    const touchedString = updateStringState(state, char, prev)
     current += char
+    if (touchedString) {
+      continue
+    }
+
+    updateNestingDepth(state, char)
+    if (char !== delimiter || !isTopLevel(state)) {
+      continue
+    }
+
+    pushPart(parts, current.slice(0, -1))
+    current = ''
   }
 
-  const rest = current.trim()
-  if (rest) {
-    parts.push(rest)
-  }
-
+  pushPart(parts, current)
   return parts
 }
 
-/** Unescapes a Rust string literal body into normal JS text. */
+/**
+ * Unescapes a Rust string literal body into normal JS text.
+ * @param input Raw Rust string-literal body.
+ * @returns Unescaped JavaScript string.
+ */
 export function unescapeRustStringLiteral(input: string): string {
   return input
     .replaceAll(String.raw`\"`, '"')
@@ -92,7 +156,12 @@ export function unescapeRustStringLiteral(input: string): string {
     .replaceAll(String.raw`\t`, '\t')
 }
 
-/** Extracts a serde string-like attribute value, e.g. `rename = "foo"`. */
+/**
+ * Extracts a serde string-like attribute value, e.g. `rename = "foo"`.
+ * @param attrs Attribute snippet text.
+ * @param name Attribute key to extract.
+ * @returns Decoded attribute value or null when not found.
+ */
 export function extractSerdeStringAttr(
   attrs: string,
   name: string,
@@ -145,12 +214,20 @@ export function extractSerdeStringAttr(
   return null
 }
 
-/** Reads `rename_all` from serde attributes. */
+/**
+ * Reads `rename_all` from serde attributes.
+ * @param attrs Attribute snippet text.
+ * @returns rename_all strategy name or null.
+ */
 export function extractRenameAll(attrs: string): string | null {
   return extractSerdeStringAttr(attrs, 'rename_all')
 }
 
-/** Reads `rename` from serde attributes with a permissive fallback parser. */
+/**
+ * Reads `rename` from serde attributes with a permissive fallback parser.
+ * @param attrs Attribute snippet text.
+ * @returns Explicit rename value or null when missing.
+ */
 export function extractRename(attrs: string): string | null {
   const direct = extractSerdeStringAttr(attrs, 'rename')
   if (direct && !direct.endsWith('\\')) {
@@ -165,7 +242,12 @@ export function extractRename(attrs: string): string | null {
   return direct
 }
 
-/** Applies serde `rename_all` policy for known naming styles. */
+/**
+ * Applies serde `rename_all` policy for known naming styles.
+ * @param input Original field or variant name.
+ * @param rule rename_all rule name.
+ * @returns Serialized name after rule normalization.
+ */
 export function applyRenameAll(input: string, rule: string | null): string {
   if (!rule) {
     return input
@@ -204,7 +286,11 @@ export function applyRenameAll(input: string, rule: string | null): string {
   return input
 }
 
-/** Normalizes Rust type text for simpler matching. */
+/**
+ * Normalizes Rust type text for simpler matching.
+ * @param typeText Raw Rust type text.
+ * @returns Type text normalized for parser matching.
+ */
 export function cleanupRustType(typeText: string): string {
   return typeText
     .replaceAll(/\s+/gu, ' ')
@@ -214,7 +300,11 @@ export function cleanupRustType(typeText: string): string {
     .trim()
 }
 
-/** Splits generic argument list from a generic Rust type expression. */
+/**
+ * Splits generic argument list from a generic Rust type expression.
+ * @param typeText Generic Rust type expression.
+ * @returns Top-level generic argument list.
+ */
 export function splitGenericArguments(typeText: string): string[] {
   const start = typeText.indexOf('<')
   const end = typeText.lastIndexOf('>')
@@ -225,7 +315,12 @@ export function splitGenericArguments(typeText: string): string[] {
   return splitTopLevel(inner, ',')
 }
 
-/** Unwraps wrappers like `Option<T>` or `Vec<T>`, returning the inner type text. */
+/**
+ * Unwraps wrappers like `Option<T>` or `Vec<T>`, returning the inner type text.
+ * @param typeText Raw Rust type text.
+ * @param wrapper Wrapper type name to match.
+ * @returns Wrapped inner type text, or null when wrapper does not match.
+ */
 export function unwrapTypeWrapper(
   typeText: string,
   wrapper: string,
@@ -240,7 +335,11 @@ export function unwrapTypeWrapper(
   return match[1].trim()
 }
 
-/** Removes Rust doc comments from multiline snippets. */
+/**
+ * Removes Rust doc comments from multiline snippets.
+ * @param text Multiline Rust snippet.
+ * @returns Text with line doc comments removed.
+ */
 export function stripDocCommentLines(text: string): string {
   return text
     .split('\n')
@@ -251,7 +350,11 @@ export function stripDocCommentLines(text: string): string {
     .join('\n')
 }
 
-/** Splits a member fragment into attributes and code body text. */
+/**
+ * Splits a member fragment into attributes and code body text.
+ * @param segment One struct/enum member snippet.
+ * @returns Attributes text and normalized body fragment.
+ */
 export function stripAttrsAndDoc(segment: string): {
   attrs: string
   rest: string
