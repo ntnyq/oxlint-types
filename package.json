@@ -1,7 +1,7 @@
 {
   "name": "@oxlint-types/define-config",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "packageManager": "pnpm@11.0.9",
   "description": "Strong typed `defineConfig` function support for oxlint.",
   "keywords": [
