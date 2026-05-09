@@ -1,5 +1,16 @@
+/* oxlint-disable import/no-relative-parent-imports */
+
 import { expect, it } from 'vitest'
+import { defineConfig } from '../src'
 
 it('Should match', () => {
-  expect(1 + 1).toBe(2)
+  const config = defineConfig({
+    rules: {
+      eqeqeq: 'warn',
+      'import/no-cycle': 'error',
+    },
+  })
+
+  expect(config.rules).toBeDefined()
+  expect(config.rules!.eqeqeq).toBe('warn')
 })

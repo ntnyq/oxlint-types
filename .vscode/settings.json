@@ -7,10 +7,19 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.oxc": "explicit"
   },
-  "files.associations": {
-    ".oxlintrc.json": "jsonc"
-  },
-  "typescript.experimental.useTsgo": true,
-  "cSpell.words": ["bumpp", "esbuild", "oxfmt", "oxlint", "Shinigami", "tsgo"],
+  "js/ts.experimental.useTsgo": true,
+  "cSpell.words": [
+    "bumpp",
+    "esbuild",
+    "esmodule",
+    "Hrefs",
+    "misrefactored",
+    "oxfmt",
+    "oxlint",
+    "polyfillio",
+    "Serde",
+    "Shinigami",
+    "tsgo"
+  ],
   "cSpell.allowCompoundWords": true
 }

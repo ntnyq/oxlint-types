@@ -1,90 +1,38 @@
-import type { OxlintConfig } from 'oxlint'
+import type {
+  OxlintConfig as UpstreamOxlintConfig,
+  OxlintOverride as UpstreamOxlintOverride,
+} from 'oxlint'
+import type { BuiltinRuleName, BuiltinRuleOptionsByName } from './plugins'
+import type { RuleOptionsPatch } from './rules/patch'
+import type { RuleEntry } from './types/common'
 
-type AllowWarnDeny = ('allow' | 'off' | 'warn' | 'error' | 'deny') | number
-type GlobalValue = 'readonly' | 'writable' | 'off'
-type Plugins =
-  | 'eslint'
-  | 'react'
-  | 'unicorn'
-  | 'typescript'
-  | 'oxc'
-  | 'import'
-  | 'jsdoc'
-  | 'jest'
-  | 'vitest'
-  | 'jsx-a11y'
-  | 'nextjs'
-  | 'react-perf'
-  | 'promise'
-  | 'node'
-  | 'vue'
+type BuiltinRuleOptionFor<Name extends string> =
+  Name extends keyof BuiltinRuleOptionsByName
+    ? BuiltinRuleOptionsByName[Name]
+    : never
 
-export type Globals = Record<string, GlobalValue>
+type RuleOptionFor<Name extends string> = Name extends keyof RuleOptionsPatch
+  ? RuleOptionsPatch[Name]
+  : BuiltinRuleOptionFor<Name>
 
-export interface Options {
-  typeAware?: boolean
-  typeCheck?: boolean
+export type RuleName = BuiltinRuleName | Extract<keyof RuleOptionsPatch, string>
+
+export type RuleMap = {
+  [Name in RuleName]?: RuleEntry<RuleOptionFor<Name>>
 }
 
-export interface Categories {
-  correctness?: AllowWarnDeny
-  nursery?: AllowWarnDeny
-  pedantic?: AllowWarnDeny
-  perf?: AllowWarnDeny
-  restriction?: AllowWarnDeny
-  style?: AllowWarnDeny
-  suspicious?: AllowWarnDeny
+type OxlintConfigBase = Omit<
+  UpstreamOxlintConfig,
+  'extends' | 'overrides' | 'rules'
+>
+type OxlintOverrideBase = Omit<UpstreamOxlintOverride, 'rules'>
+
+export interface OxlintOverride extends OxlintOverrideBase {
+  rules?: RuleMap
 }
 
-export type Env = Record<string, boolean>
-
-type TagNamePreference =
-  | string
-  | {
-      message: string
-      replacement: string
-      [k: string]: unknown
-    }
-  | {
-      message: string
-      [k: string]: unknown
-    }
-  | boolean
-
-export interface PluginJSDocSettings {
-  augmentsExtendsReplacesDocs?: boolean
-  exemptDestructuredRootsFromChecks?: boolean
-  ignoreInternal?: boolean
-  ignorePrivate?: boolean
-  ignoreReplacesDocs?: boolean
-  implementsReplacesDocs?: boolean
-  overrideReplacesDocs?: boolean
-  tagNamePreference: Record<string, TagNamePreference>
-  [k: string]: unknown
+export interface OxlintConfig extends OxlintConfigBase {
+  extends?: OxlintConfig[]
+  overrides?: OxlintOverride[]
+  rules?: RuleMap
 }
-
-export interface Settings {
-  jsdoc?: PluginJSDocSettings
-}
-
-export interface Config {
-  globals?: Globals
-
-  categories?: Categories
-
-  ignorePatterns?: string[]
-
-  files?: string[]
-
-  extends?: Omit<Config, 'extends'>
-
-  env?: Env
-
-  options?: Options
-
-  plugins?: Plugins[]
-
-  settings?: Settings
-}
-
-export type { OxlintConfig }

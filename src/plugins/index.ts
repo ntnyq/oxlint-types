@@ -2,11 +2,11 @@ export {
   BUILTIN_PLUGIN_NAMES,
   BUILTIN_RULE_NAMES,
   RULES_BY_PLUGIN,
-} from '../plugins'
+} from './index.generated'
+
 export type {
   BuiltinPluginName,
   BuiltinRuleName,
   BuiltinRuleOptionsByName,
   RulesByPlugin,
-} from '../plugins'
-export type { RuleOptionsPatch } from './patch'
+} from './index.generated'

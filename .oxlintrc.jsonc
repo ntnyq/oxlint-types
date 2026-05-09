@@ -20,10 +20,16 @@
   },
   "ignorePatterns": ["**/dist/**", "**/node_modules/**", "**/fixtures/**"],
   "rules": {
+    "capitalized-comments": "off",
+    "sort-imports": "off",
+    "no-continue": "off",
+    "prefer-destructuring": "off",
     "import/group-exports": "off",
     "import/exports-last": "off",
     "import/no-named-export": "off",
     "import/prefer-default-export": "off",
+    "import/no-relative-parent-imports": "off",
+    "unicorn/no-abusive-eslint-disable": "off",
     "id-length": [
       "warn",
       {
@@ -46,6 +52,15 @@
       },
     ],
     "func-style": ["warn", "declaration", { "allowArrowFunctions": true }],
+    "max-lines": [
+      "warn",
+      { "skipBlankLines": true, "skipComments": true, "max": 2000 },
+    ],
+    "max-statements": ["warn", 30],
+    "max-lines-per-function": [
+      "warn",
+      { "skipBlankLines": true, "skipComments": true, "max": 200 },
+    ],
     "no-magic-numbers": [
       "warn",
       {
