@@ -41,7 +41,7 @@
     "format": "oxfmt",
     "format:check": "oxfmt --check",
     "lint": "oxlint",
-    "rules:generate": "tsx ./scripts/generate-rules.ts",
+    "rules:generate": "tsx ./scripts/generate-rules.ts && pnpm run format",
     "prepare": "husky",
     "prepublishOnly": "pnpm run build",
     "release": "run-s release:check release:version",

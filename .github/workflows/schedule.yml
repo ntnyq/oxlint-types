@@ -1,0 +1,60 @@
+name: Rules Generate And Release
+
+permissions:
+  contents: write
+
+on:
+  schedule:
+    # Every 2 days at 02:00 UTC
+    - cron: '0 2 */2 * *'
+  workflow_dispatch: {}
+
+concurrency:
+  group: rules-generate-release
+  cancel-in-progress: false
+
+jobs:
+  generate-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: lts/*
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm run rules:generate
+
+      - id: changes
+        shell: bash
+        run: |
+          if [[ -n "$(git status --porcelain)" ]]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Configure Git
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Commit Generated Changes
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git add -A
+          git commit -m "feat: update rules options [skip ci]"
+
+      - name: Bump Patch Version And Publish
+        if: steps.changes.outputs.changed == 'true'
+        run: pnpm exec bumpp --yes --release patch
+
+      - name: No Changes
+        if: steps.changes.outputs.changed != 'true'
+        run: echo "No generated changes detected. Skip release."

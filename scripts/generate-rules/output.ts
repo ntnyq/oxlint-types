@@ -102,7 +102,10 @@ import type { ${optionsTypeName}, ${ruleNameTypeName} } from './${pluginName}.ge
         .filter(ruleName => ruleName !== namespaced)
         .toSorted()
         .map(alias => {
-          const optionType = optionsByRuleName[namespaced] ?? 'unknown'
+          const optionType =
+            optionsByRuleName[alias] ??
+            optionsByRuleName[namespaced] ??
+            'unknown'
           return `  ${JSON.stringify(alias)}: ${optionType}`
         })
     })
