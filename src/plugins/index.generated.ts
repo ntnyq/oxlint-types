@@ -362,6 +362,7 @@ export const BUILTIN_RULE_NAMES = [
   'eslint/prefer-object-has-own',
   'eslint/prefer-object-spread',
   'eslint/prefer-promise-reject-errors',
+  'eslint/prefer-regex-literals',
   'eslint/prefer-rest-params',
   'eslint/prefer-spread',
   'eslint/prefer-template',
@@ -522,6 +523,7 @@ export const BUILTIN_RULE_NAMES = [
   'jsx-a11y/no-aria-hidden-on-focusable',
   'jsx-a11y/no-autofocus',
   'jsx-a11y/no-distracting-elements',
+  'jsx-a11y/no-noninteractive-element-to-interactive-role',
   'jsx-a11y/no-noninteractive-tabindex',
   'jsx-a11y/no-redundant-roles',
   'jsx-a11y/no-static-element-interactions',
@@ -722,6 +724,7 @@ export const BUILTIN_RULE_NAMES = [
   'prefer-object-has-own',
   'prefer-object-spread',
   'prefer-promise-reject-errors',
+  'prefer-regex-literals',
   'prefer-rest-params',
   'prefer-spread',
   'prefer-template',
@@ -1692,6 +1695,7 @@ export interface BuiltinRuleOptionsByName
   'prefer-promise-reject-errors': {
     allowEmptyReject?: boolean
   }
+  'prefer-regex-literals': unknown
   'prefer-rest-params': never
   'prefer-spread': never
   'prefer-template': never

@@ -6,7 +6,7 @@ import os from 'node:os'
 import path from 'node:path'
 import { ROOT } from './constants'
 import { buildRuleOptionsByRuleName } from './options'
-import { writePluginFiles } from './output'
+import { readExistingGeneratedOptionTypes, writePluginFiles } from './output'
 import { parseRulesJson } from './rules-json'
 
 /**
@@ -32,7 +32,11 @@ export async function generateRules(): Promise<void> {
     )
 
     const parsed = parseRulesJson(rulesOutput)
-    const optionsByRuleName = await buildRuleOptionsByRuleName(parsed)
+    const previousOptionsByRuleName = readExistingGeneratedOptionTypes()
+    const { optionsByRuleName, report } = await buildRuleOptionsByRuleName(
+      parsed,
+      previousOptionsByRuleName,
+    )
     writePluginFiles(parsed, optionsByRuleName)
 
     const knownCount = Object.values(optionsByRuleName).filter(
@@ -43,6 +47,33 @@ export async function generateRules(): Promise<void> {
     console.log(
       `Generated ${parsed.sortedRuleNames.length} rules (${knownCount} option schemas parsed) from ${parsed.pluginNames.length} plugins into src/plugins/*.generated.ts`,
     )
+    // eslint-disable-next-line no-console
+    console.log(
+      [
+        'Option parse summary:',
+        `- parsed with known type: ${report.parsedRules.length}`,
+        `- parse errors: ${report.errorRules.length}`,
+        `- preserved previous non-unknown type: ${report.preservedUnknownDowngradeRules.length}`,
+      ].join('\n'),
+    )
+
+    if (report.errorRules.length > 0) {
+      // eslint-disable-next-line no-console
+      console.log('Parse error rules:')
+      for (const item of report.errorRules) {
+        // eslint-disable-next-line no-console
+        console.log(`- ${item}`)
+      }
+    }
+
+    if (report.preservedUnknownDowngradeRules.length > 0) {
+      // eslint-disable-next-line no-console
+      console.log('Preserved previous non-unknown type rules:')
+      for (const ruleName of report.preservedUnknownDowngradeRules) {
+        // eslint-disable-next-line no-console
+        console.log(`- ${ruleName}`)
+      }
+    }
   } finally {
     fs.rmSync(tmpConfigPath, { force: true })
   }

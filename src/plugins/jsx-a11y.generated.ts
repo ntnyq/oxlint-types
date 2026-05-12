@@ -27,6 +27,7 @@ export const JSX_A11Y_RULE_NAMES = [
   'no-aria-hidden-on-focusable',
   'no-autofocus',
   'no-distracting-elements',
+  'no-noninteractive-element-to-interactive-role',
   'no-noninteractive-tabindex',
   'no-redundant-roles',
   'no-static-element-interactions',
@@ -101,6 +102,7 @@ export interface JsxA11yRuleOptionsByName {
   'jsx-a11y/no-distracting-elements': {
     elements?: readonly ('Marquee' | 'Blink')[]
   }
+  'jsx-a11y/no-noninteractive-element-to-interactive-role': unknown
   'jsx-a11y/no-noninteractive-tabindex': {
     tags?: readonly string[]
     roles?: readonly string[]

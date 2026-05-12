@@ -19,7 +19,8 @@
     "polyfillio",
     "Serde",
     "Shinigami",
-    "tsgo"
+    "tsgo",
+    "vitepress"
   ],
   "cSpell.allowCompoundWords": true
 }

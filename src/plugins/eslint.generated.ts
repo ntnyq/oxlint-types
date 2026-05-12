@@ -164,6 +164,7 @@ export const ESLINT_RULE_NAMES = [
   'prefer-object-has-own',
   'prefer-object-spread',
   'prefer-promise-reject-errors',
+  'prefer-regex-literals',
   'prefer-rest-params',
   'prefer-spread',
   'prefer-template',
@@ -690,6 +691,7 @@ export interface EslintRuleOptionsByName {
   'eslint/prefer-promise-reject-errors': {
     allowEmptyReject?: boolean
   }
+  'eslint/prefer-regex-literals': unknown
   'eslint/prefer-rest-params': never
   'eslint/prefer-spread': never
   'eslint/prefer-template': never

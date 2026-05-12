@@ -43,3 +43,20 @@ export interface RuleSource {
   ruleFileUrl: string
   source: string
 }
+
+/** Per-rule option parsing report entry. */
+export interface RuleOptionResolution {
+  finalType: string
+  namespacedRuleName: string
+  parseError?: string
+  parsedType: string
+  preservedPreviousType?: string
+  sourceFound: boolean
+}
+
+/** Aggregate option parsing report for one generator run. */
+export interface RuleOptionsBuildReport {
+  errorRules: string[]
+  parsedRules: string[]
+  preservedUnknownDowngradeRules: string[]
+}

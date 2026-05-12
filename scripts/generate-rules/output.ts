@@ -205,3 +205,48 @@ export function writePluginFiles(
     'utf8',
   )
 }
+
+/**
+ * Reads option type entries from existing generated plugin files.
+ * Used to prevent overwriting previously known types with `unknown`.
+ * @returns Map of rule name to option type extracted from generated files.
+ */
+export function readExistingGeneratedOptionTypes(): Record<string, string> {
+  if (!fs.existsSync(PLUGINS_DIR)) {
+    return {}
+  }
+
+  const files = fs
+    .readdirSync(PLUGINS_DIR, { withFileTypes: true })
+    .filter(entry => entry.isFile() && entry.name.endsWith('.generated.ts'))
+    .map(entry => path.join(PLUGINS_DIR, entry.name))
+
+  const map: Record<string, string> = {}
+  for (const filePath of files) {
+    const content = fs.readFileSync(filePath, 'utf8')
+    const interfaces = [
+      ...content.matchAll(/export interface [^{]+\{([\s\S]*?)\n\}/gmu),
+    ]
+    for (const iface of interfaces) {
+      const body = iface[1] ?? ''
+      const entryRegex = /\s{2}("([^"]+)"):\s/gmu
+      let match = entryRegex.exec(body)
+
+      while (match) {
+        const fullMatch = match[0]
+        const ruleName = match[2]
+        const typeStart = match.index + fullMatch.length
+        const next = entryRegex.exec(body)
+        const typeEnd = next ? next.index : body.length
+        const optionType = body.slice(typeStart, typeEnd).trim()
+        if (ruleName && optionType) {
+          map[ruleName] = optionType
+        }
+
+        match = next
+      }
+    }
+  }
+
+  return map
+}
