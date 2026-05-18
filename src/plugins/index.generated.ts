@@ -274,6 +274,7 @@ export const BUILTIN_RULE_NAMES = [
   'eslint/no-func-assign',
   'eslint/no-global-assign',
   'eslint/no-implicit-coercion',
+  'eslint/no-implicit-globals',
   'eslint/no-import-assign',
   'eslint/no-inline-comments',
   'eslint/no-inner-declarations',
@@ -355,6 +356,7 @@ export const BUILTIN_RULE_NAMES = [
   'eslint/no-with',
   'eslint/object-shorthand',
   'eslint/operator-assignment',
+  'eslint/prefer-arrow-callback',
   'eslint/prefer-const',
   'eslint/prefer-destructuring',
   'eslint/prefer-exponentiation-operator',
@@ -498,7 +500,10 @@ export const BUILTIN_RULE_NAMES = [
   'jsdoc/require-returns',
   'jsdoc/require-returns-description',
   'jsdoc/require-returns-type',
+  'jsdoc/require-throws-description',
+  'jsdoc/require-throws-type',
   'jsdoc/require-yields',
+  'jsdoc/require-yields-type',
   'jsx-a11y/alt-text',
   'jsx-a11y/anchor-ambiguous-text',
   'jsx-a11y/anchor-has-content',
@@ -510,6 +515,7 @@ export const BUILTIN_RULE_NAMES = [
   'jsx-a11y/aria-unsupported-elements',
   'jsx-a11y/autocomplete-valid',
   'jsx-a11y/click-events-have-key-events',
+  'jsx-a11y/control-has-associated-label',
   'jsx-a11y/heading-has-content',
   'jsx-a11y/html-has-lang',
   'jsx-a11y/iframe-has-title',
@@ -523,6 +529,8 @@ export const BUILTIN_RULE_NAMES = [
   'jsx-a11y/no-aria-hidden-on-focusable',
   'jsx-a11y/no-autofocus',
   'jsx-a11y/no-distracting-elements',
+  'jsx-a11y/no-interactive-element-to-noninteractive-role',
+  'jsx-a11y/no-noninteractive-element-interactions',
   'jsx-a11y/no-noninteractive-element-to-interactive-role',
   'jsx-a11y/no-noninteractive-tabindex',
   'jsx-a11y/no-redundant-roles',
@@ -604,6 +612,7 @@ export const BUILTIN_RULE_NAMES = [
   'no-func-assign',
   'no-global-assign',
   'no-implicit-coercion',
+  'no-implicit-globals',
   'no-import-assign',
   'no-inline-comments',
   'no-inner-declarations',
@@ -717,6 +726,7 @@ export const BUILTIN_RULE_NAMES = [
   'oxc/number-arg-out-of-range',
   'oxc/only-used-in-recursion',
   'oxc/uninvoked-array-callback',
+  'prefer-arrow-callback',
   'prefer-const',
   'prefer-destructuring',
   'prefer-exponentiation-operator',
@@ -1444,6 +1454,7 @@ export interface BuiltinRuleOptionsByName
     disallowTemplateShorthand?: boolean
     allow?: never
   }
+  'no-implicit-globals': unknown
   'no-import-assign': never
   'no-inline-comments': {
     ignorePattern?: string
@@ -1673,6 +1684,7 @@ export interface BuiltinRuleOptionsByName
     },
   ]
   'operator-assignment': 'always' | 'never'
+  'prefer-arrow-callback': unknown
   'prefer-const': {
     destructuring?: 'any' | 'all'
     ignoreReadBeforeAssign?: boolean

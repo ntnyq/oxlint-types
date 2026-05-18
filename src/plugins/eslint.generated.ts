@@ -76,6 +76,7 @@ export const ESLINT_RULE_NAMES = [
   'no-func-assign',
   'no-global-assign',
   'no-implicit-coercion',
+  'no-implicit-globals',
   'no-import-assign',
   'no-inline-comments',
   'no-inner-declarations',
@@ -157,6 +158,7 @@ export const ESLINT_RULE_NAMES = [
   'no-with',
   'object-shorthand',
   'operator-assignment',
+  'prefer-arrow-callback',
   'prefer-const',
   'prefer-destructuring',
   'prefer-exponentiation-operator',
@@ -440,6 +442,7 @@ export interface EslintRuleOptionsByName {
     disallowTemplateShorthand?: boolean
     allow?: never
   }
+  'eslint/no-implicit-globals': unknown
   'eslint/no-import-assign': never
   'eslint/no-inline-comments': {
     ignorePattern?: string
@@ -669,6 +672,7 @@ export interface EslintRuleOptionsByName {
     },
   ]
   'eslint/operator-assignment': 'always' | 'never'
+  'eslint/prefer-arrow-callback': unknown
   'eslint/prefer-const': {
     destructuring?: 'any' | 'all'
     ignoreReadBeforeAssign?: boolean

@@ -14,6 +14,7 @@ export const JSX_A11Y_RULE_NAMES = [
   'aria-unsupported-elements',
   'autocomplete-valid',
   'click-events-have-key-events',
+  'control-has-associated-label',
   'heading-has-content',
   'html-has-lang',
   'iframe-has-title',
@@ -27,6 +28,8 @@ export const JSX_A11Y_RULE_NAMES = [
   'no-aria-hidden-on-focusable',
   'no-autofocus',
   'no-distracting-elements',
+  'no-interactive-element-to-noninteractive-role',
+  'no-noninteractive-element-interactions',
   'no-noninteractive-element-to-interactive-role',
   'no-noninteractive-tabindex',
   'no-redundant-roles',
@@ -66,6 +69,7 @@ export interface JsxA11yRuleOptionsByName {
     inputComponents?: unknown
   }
   'jsx-a11y/click-events-have-key-events': never
+  'jsx-a11y/control-has-associated-label': unknown
   'jsx-a11y/heading-has-content': {
     components?: readonly string[]
   }
@@ -102,6 +106,8 @@ export interface JsxA11yRuleOptionsByName {
   'jsx-a11y/no-distracting-elements': {
     elements?: readonly ('Marquee' | 'Blink')[]
   }
+  'jsx-a11y/no-interactive-element-to-noninteractive-role': unknown
+  'jsx-a11y/no-noninteractive-element-interactions': unknown
   'jsx-a11y/no-noninteractive-element-to-interactive-role': unknown
   'jsx-a11y/no-noninteractive-tabindex': {
     tags?: readonly string[]

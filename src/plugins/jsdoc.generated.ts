@@ -20,7 +20,10 @@ export const JSDOC_RULE_NAMES = [
   'require-returns',
   'require-returns-description',
   'require-returns-type',
+  'require-throws-description',
+  'require-throws-type',
   'require-yields',
+  'require-yields-type',
 ] as const
 
 export type JsdocRuleName = (typeof JSDOC_RULE_NAMES)[number]
@@ -66,9 +69,12 @@ export interface JsdocRuleOptionsByName {
   }
   'jsdoc/require-returns-description': never
   'jsdoc/require-returns-type': never
+  'jsdoc/require-throws-description': unknown
+  'jsdoc/require-throws-type': unknown
   'jsdoc/require-yields': {
     exemptedBy?: readonly string[]
     forceRequireYields?: boolean
     withGeneratorTag?: boolean
   }
+  'jsdoc/require-yields-type': unknown
 }
