@@ -222,6 +222,7 @@ export const BUILTIN_RULE_NAMES = [
   'eslint/grouped-accessor-pairs',
   'eslint/guard-for-in',
   'eslint/id-length',
+  'eslint/id-match',
   'eslint/init-declarations',
   'eslint/logical-assignment-operators',
   'eslint/max-classes-per-file',
@@ -275,6 +276,7 @@ export const BUILTIN_RULE_NAMES = [
   'eslint/no-global-assign',
   'eslint/no-implicit-coercion',
   'eslint/no-implicit-globals',
+  'eslint/no-implied-eval',
   'eslint/no-import-assign',
   'eslint/no-inline-comments',
   'eslint/no-inner-declarations',
@@ -390,6 +392,7 @@ export const BUILTIN_RULE_NAMES = [
   'grouped-accessor-pairs',
   'guard-for-in',
   'id-length',
+  'id-match',
   'import/consistent-type-specifier-style',
   'import/default',
   'import/export',
@@ -400,6 +403,7 @@ export const BUILTIN_RULE_NAMES = [
   'import/max-dependencies',
   'import/named',
   'import/namespace',
+  'import/newline-after-import',
   'import/no-absolute-path',
   'import/no-amd',
   'import/no-anonymous-default-export',
@@ -613,6 +617,7 @@ export const BUILTIN_RULE_NAMES = [
   'no-global-assign',
   'no-implicit-coercion',
   'no-implicit-globals',
+  'no-implied-eval',
   'no-import-assign',
   'no-inline-comments',
   'no-inner-declarations',
@@ -799,6 +804,7 @@ export const BUILTIN_RULE_NAMES = [
   'react/no-is-mounted',
   'react/no-multi-comp',
   'react/no-namespace',
+  'react/no-object-type-as-default-prop',
   'react/no-react-children',
   'react/no-redundant-should-component-update',
   'react/no-render-return-value',
@@ -808,6 +814,7 @@ export const BUILTIN_RULE_NAMES = [
   'react/no-unescaped-entities',
   'react/no-unknown-property',
   'react/no-unsafe',
+  'react/no-unstable-nested-components',
   'react/no-will-update-set-state',
   'react/only-export-components',
   'react/prefer-es6-class',
@@ -1098,6 +1105,7 @@ export const BUILTIN_RULE_NAMES = [
   'vitest/no-test-prefixes',
   'vitest/no-test-return-statement',
   'vitest/no-unneeded-async-expect-function',
+  'vitest/padding-around-after-all-blocks',
   'vitest/prefer-called-exactly-once-with',
   'vitest/prefer-called-once',
   'vitest/prefer-called-times',
@@ -1310,6 +1318,7 @@ export interface BuiltinRuleOptionsByName
     checkGeneric?: boolean
     properties?: 'Always' | 'Never'
   }
+  'id-match': unknown
   'init-declarations': readonly [
     'always' | 'never',
     {
@@ -1455,6 +1464,7 @@ export interface BuiltinRuleOptionsByName
     allow?: never
   }
   'no-implicit-globals': unknown
+  'no-implied-eval': unknown
   'no-import-assign': never
   'no-inline-comments': {
     ignorePattern?: string

@@ -24,6 +24,7 @@ export const ESLINT_RULE_NAMES = [
   'grouped-accessor-pairs',
   'guard-for-in',
   'id-length',
+  'id-match',
   'init-declarations',
   'logical-assignment-operators',
   'max-classes-per-file',
@@ -77,6 +78,7 @@ export const ESLINT_RULE_NAMES = [
   'no-global-assign',
   'no-implicit-coercion',
   'no-implicit-globals',
+  'no-implied-eval',
   'no-import-assign',
   'no-inline-comments',
   'no-inner-declarations',
@@ -298,6 +300,7 @@ export interface EslintRuleOptionsByName {
     checkGeneric?: boolean
     properties?: 'Always' | 'Never'
   }
+  'eslint/id-match': unknown
   'eslint/init-declarations': readonly [
     'always' | 'never',
     {
@@ -443,6 +446,7 @@ export interface EslintRuleOptionsByName {
     allow?: never
   }
   'eslint/no-implicit-globals': unknown
+  'eslint/no-implied-eval': unknown
   'eslint/no-import-assign': never
   'eslint/no-inline-comments': {
     ignorePattern?: string

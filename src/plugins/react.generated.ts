@@ -42,6 +42,7 @@ export const REACT_RULE_NAMES = [
   'no-is-mounted',
   'no-multi-comp',
   'no-namespace',
+  'no-object-type-as-default-prop',
   'no-react-children',
   'no-redundant-should-component-update',
   'no-render-return-value',
@@ -51,6 +52,7 @@ export const REACT_RULE_NAMES = [
   'no-unescaped-entities',
   'no-unknown-property',
   'no-unsafe',
+  'no-unstable-nested-components',
   'no-will-update-set-state',
   'only-export-components',
   'prefer-es6-class',
@@ -178,6 +180,7 @@ export interface ReactRuleOptionsByName {
     ignoreStateless?: boolean
   }
   'react/no-namespace': never
+  'react/no-object-type-as-default-prop': unknown
   'react/no-react-children': never
   'react/no-redundant-should-component-update': never
   'react/no-render-return-value': never
@@ -193,6 +196,7 @@ export interface ReactRuleOptionsByName {
   'react/no-unsafe': {
     checkAliases?: boolean
   }
+  'react/no-unstable-nested-components': unknown
   'react/no-will-update-set-state': 'allowed' | 'disallow-in-func'
   'react/only-export-components': {
     allowExportNames?: unknown

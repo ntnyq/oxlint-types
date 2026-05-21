@@ -13,6 +13,7 @@ export const IMPORT_RULE_NAMES = [
   'max-dependencies',
   'named',
   'namespace',
+  'newline-after-import',
   'no-absolute-path',
   'no-amd',
   'no-anonymous-default-export',
@@ -64,6 +65,7 @@ export interface ImportRuleOptionsByName {
   'import/namespace': {
     allowComputed?: boolean
   }
+  'import/newline-after-import': unknown
   'import/no-absolute-path': {
     esmodule?: boolean
     commonjs?: boolean

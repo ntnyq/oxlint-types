@@ -32,6 +32,7 @@ export const VITEST_RULE_NAMES = [
   'no-test-prefixes',
   'no-test-return-statement',
   'no-unneeded-async-expect-function',
+  'padding-around-after-all-blocks',
   'prefer-called-exactly-once-with',
   'prefer-called-once',
   'prefer-called-times',
@@ -118,6 +119,7 @@ export interface VitestRuleOptionsByName {
   'vitest/no-test-prefixes': never
   'vitest/no-test-return-statement': never
   'vitest/no-unneeded-async-expect-function': never
+  'vitest/padding-around-after-all-blocks': unknown
   'vitest/prefer-called-exactly-once-with': never
   'vitest/prefer-called-once': never
   'vitest/prefer-called-times': never
