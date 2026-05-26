@@ -16,6 +16,7 @@ export const UNICORN_RULE_NAMES = [
   'escape-case',
   'explicit-length-check',
   'filename-case',
+  'import-style',
   'new-for-builtins',
   'no-abusive-eslint-disable',
   'no-accessor-recursion',
@@ -168,6 +169,7 @@ export interface UnicornRuleOptionsByName {
     ignore?: string
     multipleFileExtensions?: boolean
   }
+  'unicorn/import-style': unknown
   'unicorn/new-for-builtins': never
   'unicorn/no-abusive-eslint-disable': never
   'unicorn/no-accessor-recursion': never

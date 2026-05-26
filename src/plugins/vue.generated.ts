@@ -8,24 +8,34 @@ export const VUE_RULE_NAMES = [
   'define-props-destructuring',
   'max-props',
   'no-arrow-functions-in-watch',
+  'no-computed-properties-in-data',
   'no-deprecated-data-object-declaration',
   'no-deprecated-delete-set',
   'no-deprecated-destroyed-lifecycle',
   'no-deprecated-events-api',
   'no-deprecated-model-definition',
+  'no-deprecated-props-default-this',
   'no-deprecated-vue-config-keycodes',
   'no-export-in-script-setup',
+  'no-expose-after-await',
   'no-import-compiler-macros',
   'no-lifecycle-after-await',
   'no-multiple-slot-args',
   'no-required-prop-with-default',
+  'no-shared-component-data',
   'no-this-in-before-route-enter',
+  'no-watch-after-await',
   'prefer-import-from-vue',
   'require-default-export',
+  'require-render-return',
+  'require-slots-as-functions',
   'require-typed-ref',
   'return-in-computed-property',
+  'return-in-emits-validator',
   'valid-define-emits',
+  'valid-define-options',
   'valid-define-props',
+  'valid-next-tick',
 ] as const
 
 export type VueRuleName = (typeof VUE_RULE_NAMES)[number]
@@ -40,6 +50,7 @@ export interface VueRuleOptionsByName {
     maxProps?: number
   }
   'vue/no-arrow-functions-in-watch': never
+  'vue/no-computed-properties-in-data': unknown
   'vue/no-deprecated-data-object-declaration': never
   'vue/no-deprecated-delete-set': never
   'vue/no-deprecated-destroyed-lifecycle': never
@@ -47,19 +58,28 @@ export interface VueRuleOptionsByName {
   'vue/no-deprecated-model-definition': {
     allowVue3Compat?: boolean
   }
+  'vue/no-deprecated-props-default-this': unknown
   'vue/no-deprecated-vue-config-keycodes': never
   'vue/no-export-in-script-setup': never
+  'vue/no-expose-after-await': unknown
   'vue/no-import-compiler-macros': never
   'vue/no-lifecycle-after-await': never
   'vue/no-multiple-slot-args': never
   'vue/no-required-prop-with-default': never
+  'vue/no-shared-component-data': unknown
   'vue/no-this-in-before-route-enter': never
+  'vue/no-watch-after-await': unknown
   'vue/prefer-import-from-vue': never
   'vue/require-default-export': never
+  'vue/require-render-return': unknown
+  'vue/require-slots-as-functions': unknown
   'vue/require-typed-ref': never
   'vue/return-in-computed-property': {
     treatUndefinedAsUnspecified?: boolean
   }
+  'vue/return-in-emits-validator': unknown
   'vue/valid-define-emits': never
+  'vue/valid-define-options': unknown
   'vue/valid-define-props': never
+  'vue/valid-next-tick': unknown
 }
