@@ -1,5 +1,16 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["github>ntnyq/configs//packages/renovate-config/default.json"],
-  "automerge": true
+  "automerge": true,
+  "packageRules": [
+    {
+      "matchPackageNames": ["oxlint"],
+      "prCreation": "immediate",
+      "automerge": true,
+      "platformAutomerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash",
+      "schedule": ["at any time"]
+    }
+  ]
 }

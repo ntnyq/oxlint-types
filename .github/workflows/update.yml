@@ -1,4 +1,4 @@
-name: Rules Generate And Release
+name: Update Rules Options
 
 permissions:
   contents: write
@@ -8,13 +8,22 @@ on:
     # Every 2 days at 02:00 UTC
     - cron: '0 2 */2 * *'
   workflow_dispatch: {}
+  pull_request:
+    types: [closed]
 
 concurrency:
-  group: rules-generate-release
+  group: update-rules-options
   cancel-in-progress: false
 
 jobs:
-  generate-and-release:
+  update-rules-options:
+    if: >-
+      github.event_name != 'pull_request' ||
+      (
+        github.event.pull_request.merged == true &&
+        github.event.pull_request.user.login == 'renovate[bot]' &&
+        contains(github.event.pull_request.title, 'oxlint')
+      )
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
