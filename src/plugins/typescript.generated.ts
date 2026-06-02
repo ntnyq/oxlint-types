@@ -21,6 +21,7 @@ export const TYPESCRIPT_RULE_NAMES = [
   'explicit-function-return-type',
   'explicit-member-accessibility',
   'explicit-module-boundary-types',
+  'method-signature-style',
   'no-array-delete',
   'no-base-to-string',
   'no-confusing-non-null-assertion',
@@ -190,6 +191,7 @@ export interface TypescriptRuleOptionsByName {
     allowOverloadFunctions?: boolean
     allowTypedFunctionExpressions?: boolean
   }
+  'typescript/method-signature-style': unknown
   'typescript/no-array-delete': never
   'typescript/no-base-to-string': {
     checkUnknown?: boolean

@@ -97,6 +97,7 @@ export const BUILTIN_RULE_NAMES = [
   '@typescript-eslint/explicit-function-return-type',
   '@typescript-eslint/explicit-member-accessibility',
   '@typescript-eslint/explicit-module-boundary-types',
+  '@typescript-eslint/method-signature-style',
   '@typescript-eslint/no-array-delete',
   '@typescript-eslint/no-base-to-string',
   '@typescript-eslint/no-confusing-non-null-assertion',
@@ -362,6 +363,7 @@ export const BUILTIN_RULE_NAMES = [
   'eslint/prefer-const',
   'eslint/prefer-destructuring',
   'eslint/prefer-exponentiation-operator',
+  'eslint/prefer-named-capture-group',
   'eslint/prefer-numeric-literals',
   'eslint/prefer-object-has-own',
   'eslint/prefer-object-spread',
@@ -507,6 +509,7 @@ export const BUILTIN_RULE_NAMES = [
   'jsdoc/require-throws-description',
   'jsdoc/require-throws-type',
   'jsdoc/require-yields',
+  'jsdoc/require-yields-description',
   'jsdoc/require-yields-type',
   'jsx-a11y/alt-text',
   'jsx-a11y/anchor-ambiguous-text',
@@ -736,6 +739,7 @@ export const BUILTIN_RULE_NAMES = [
   'prefer-const',
   'prefer-destructuring',
   'prefer-exponentiation-operator',
+  'prefer-named-capture-group',
   'prefer-numeric-literals',
   'prefer-object-has-own',
   'prefer-object-spread',
@@ -852,6 +856,7 @@ export const BUILTIN_RULE_NAMES = [
   'typescript/explicit-function-return-type',
   'typescript/explicit-member-accessibility',
   'typescript/explicit-module-boundary-types',
+  'typescript/method-signature-style',
   'typescript/no-array-delete',
   'typescript/no-base-to-string',
   'typescript/no-confusing-non-null-assertion',
@@ -1150,6 +1155,7 @@ export const BUILTIN_RULE_NAMES = [
   'vitest/valid-expect-in-promise',
   'vitest/valid-title',
   'vitest/warn-todo',
+  'vue/component-definition-name-casing',
   'vue/define-emits-declaration',
   'vue/define-props-declaration',
   'vue/define-props-destructuring',
@@ -1169,11 +1175,13 @@ export const BUILTIN_RULE_NAMES = [
   'vue/no-lifecycle-after-await',
   'vue/no-multiple-slot-args',
   'vue/no-required-prop-with-default',
+  'vue/no-reserved-component-names',
   'vue/no-shared-component-data',
   'vue/no-this-in-before-route-enter',
   'vue/no-watch-after-await',
   'vue/prefer-import-from-vue',
   'vue/require-default-export',
+  'vue/require-prop-type-constructor',
   'vue/require-render-return',
   'vue/require-slots-as-functions',
   'vue/require-typed-ref',
@@ -1723,6 +1731,7 @@ export interface BuiltinRuleOptionsByName
     enforceForRenamedProperties?: boolean
   }
   'prefer-exponentiation-operator': never
+  'prefer-named-capture-group': unknown
   'prefer-numeric-literals': never
   'prefer-object-has-own': never
   'prefer-object-spread': never
@@ -1853,6 +1862,7 @@ export interface BuiltinRuleOptionsByName
     allowOverloadFunctions?: boolean
     allowTypedFunctionExpressions?: boolean
   }
+  '@typescript-eslint/method-signature-style': unknown
   '@typescript-eslint/no-array-delete': never
   '@typescript-eslint/no-base-to-string': {
     checkUnknown?: boolean

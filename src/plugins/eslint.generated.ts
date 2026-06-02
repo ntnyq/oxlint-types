@@ -164,6 +164,7 @@ export const ESLINT_RULE_NAMES = [
   'prefer-const',
   'prefer-destructuring',
   'prefer-exponentiation-operator',
+  'prefer-named-capture-group',
   'prefer-numeric-literals',
   'prefer-object-has-own',
   'prefer-object-spread',
@@ -693,6 +694,7 @@ export interface EslintRuleOptionsByName {
     enforceForRenamedProperties?: boolean
   }
   'eslint/prefer-exponentiation-operator': never
+  'eslint/prefer-named-capture-group': unknown
   'eslint/prefer-numeric-literals': never
   'eslint/prefer-object-has-own': never
   'eslint/prefer-object-spread': never

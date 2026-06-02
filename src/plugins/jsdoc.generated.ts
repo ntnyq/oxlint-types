@@ -23,6 +23,7 @@ export const JSDOC_RULE_NAMES = [
   'require-throws-description',
   'require-throws-type',
   'require-yields',
+  'require-yields-description',
   'require-yields-type',
 ] as const
 
@@ -76,5 +77,6 @@ export interface JsdocRuleOptionsByName {
     forceRequireYields?: boolean
     withGeneratorTag?: boolean
   }
+  'jsdoc/require-yields-description': unknown
   'jsdoc/require-yields-type': unknown
 }
