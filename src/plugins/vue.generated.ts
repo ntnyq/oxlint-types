@@ -8,6 +8,7 @@ export const VUE_RULE_NAMES = [
   'define-props-declaration',
   'define-props-destructuring',
   'max-props',
+  'next-tick-style',
   'no-arrow-functions-in-watch',
   'no-computed-properties-in-data',
   'no-deprecated-data-object-declaration',
@@ -24,12 +25,17 @@ export const VUE_RULE_NAMES = [
   'no-multiple-slot-args',
   'no-required-prop-with-default',
   'no-reserved-component-names',
+  'no-reserved-keys',
+  'no-reserved-props',
   'no-shared-component-data',
   'no-this-in-before-route-enter',
   'no-watch-after-await',
   'prefer-import-from-vue',
+  'prop-name-casing',
   'require-default-export',
+  'require-direct-export',
   'require-prop-type-constructor',
+  'require-prop-types',
   'require-render-return',
   'require-slots-as-functions',
   'require-typed-ref',
@@ -53,6 +59,7 @@ export interface VueRuleOptionsByName {
   'vue/max-props': {
     maxProps?: number
   }
+  'vue/next-tick-style': unknown
   'vue/no-arrow-functions-in-watch': never
   'vue/no-computed-properties-in-data': unknown
   'vue/no-deprecated-data-object-declaration': never
@@ -71,12 +78,17 @@ export interface VueRuleOptionsByName {
   'vue/no-multiple-slot-args': never
   'vue/no-required-prop-with-default': never
   'vue/no-reserved-component-names': unknown
+  'vue/no-reserved-keys': unknown
+  'vue/no-reserved-props': unknown
   'vue/no-shared-component-data': unknown
   'vue/no-this-in-before-route-enter': never
   'vue/no-watch-after-await': unknown
   'vue/prefer-import-from-vue': never
+  'vue/prop-name-casing': unknown
   'vue/require-default-export': never
+  'vue/require-direct-export': unknown
   'vue/require-prop-type-constructor': unknown
+  'vue/require-prop-types': unknown
   'vue/require-render-return': unknown
   'vue/require-slots-as-functions': unknown
   'vue/require-typed-ref': never
