@@ -23,6 +23,7 @@ export const REACT_RULE_NAMES = [
   'jsx-no-comment-textnodes',
   'jsx-no-constructed-context-values',
   'jsx-no-duplicate-props',
+  'jsx-no-literals',
   'jsx-no-script-url',
   'jsx-no-target-blank',
   'jsx-no-undef',
@@ -57,6 +58,7 @@ export const REACT_RULE_NAMES = [
   'only-export-components',
   'prefer-es6-class',
   'prefer-function-component',
+  'react-compiler',
   'react-in-jsx-scope',
   'require-render-return',
   'rules-of-hooks',
@@ -138,6 +140,7 @@ export interface ReactRuleOptionsByName {
   'react/jsx-no-comment-textnodes': never
   'react/jsx-no-constructed-context-values': never
   'react/jsx-no-duplicate-props': never
+  'react/jsx-no-literals': unknown
   'react/jsx-no-script-url': {
     includeFromSettings?: boolean
     components?: unknown
@@ -209,6 +212,7 @@ export interface ReactRuleOptionsByName {
     allowErrorBoundary?: boolean
     allowJsxUtilityClass?: boolean
   }
+  'react/react-compiler': unknown
   'react/react-in-jsx-scope': never
   'react/require-render-return': never
   'react/rules-of-hooks': never

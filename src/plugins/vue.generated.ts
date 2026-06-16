@@ -18,6 +18,7 @@ export const VUE_RULE_NAMES = [
   'no-deprecated-model-definition',
   'no-deprecated-props-default-this',
   'no-deprecated-vue-config-keycodes',
+  'no-dupe-keys',
   'no-export-in-script-setup',
   'no-expose-after-await',
   'no-import-compiler-macros',
@@ -28,11 +29,13 @@ export const VUE_RULE_NAMES = [
   'no-reserved-keys',
   'no-reserved-props',
   'no-shared-component-data',
+  'no-side-effects-in-computed-properties',
   'no-this-in-before-route-enter',
   'no-watch-after-await',
   'prefer-import-from-vue',
   'prop-name-casing',
   'require-default-export',
+  'require-default-prop',
   'require-direct-export',
   'require-prop-type-constructor',
   'require-prop-types',
@@ -71,6 +74,7 @@ export interface VueRuleOptionsByName {
   }
   'vue/no-deprecated-props-default-this': unknown
   'vue/no-deprecated-vue-config-keycodes': never
+  'vue/no-dupe-keys': unknown
   'vue/no-export-in-script-setup': never
   'vue/no-expose-after-await': unknown
   'vue/no-import-compiler-macros': never
@@ -81,11 +85,13 @@ export interface VueRuleOptionsByName {
   'vue/no-reserved-keys': unknown
   'vue/no-reserved-props': unknown
   'vue/no-shared-component-data': unknown
+  'vue/no-side-effects-in-computed-properties': unknown
   'vue/no-this-in-before-route-enter': never
   'vue/no-watch-after-await': unknown
   'vue/prefer-import-from-vue': never
   'vue/prop-name-casing': unknown
   'vue/require-default-export': never
+  'vue/require-default-prop': unknown
   'vue/require-direct-export': unknown
   'vue/require-prop-type-constructor': unknown
   'vue/require-prop-types': unknown

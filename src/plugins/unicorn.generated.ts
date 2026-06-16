@@ -22,6 +22,7 @@ export const UNICORN_RULE_NAMES = [
   'no-accessor-recursion',
   'no-anonymous-default-export',
   'no-array-callback-reference',
+  'no-array-fill-with-reference-type',
   'no-array-for-each',
   'no-array-method-this-argument',
   'no-array-reduce',
@@ -91,6 +92,7 @@ export const UNICORN_RULE_NAMES = [
   'prefer-dom-node-remove',
   'prefer-dom-node-text-content',
   'prefer-event-target',
+  'prefer-export-from',
   'prefer-global-this',
   'prefer-import-meta-properties',
   'prefer-includes',
@@ -114,6 +116,7 @@ export const UNICORN_RULE_NAMES = [
   'prefer-response-static-json',
   'prefer-set-has',
   'prefer-set-size',
+  'prefer-single-call',
   'prefer-spread',
   'prefer-string-raw',
   'prefer-string-replace-all',
@@ -175,6 +178,7 @@ export interface UnicornRuleOptionsByName {
   'unicorn/no-accessor-recursion': never
   'unicorn/no-anonymous-default-export': never
   'unicorn/no-array-callback-reference': never
+  'unicorn/no-array-fill-with-reference-type': unknown
   'unicorn/no-array-for-each': never
   'unicorn/no-array-method-this-argument': never
   'unicorn/no-array-reduce': {
@@ -285,6 +289,7 @@ export interface UnicornRuleOptionsByName {
   'unicorn/prefer-dom-node-remove': never
   'unicorn/prefer-dom-node-text-content': never
   'unicorn/prefer-event-target': never
+  'unicorn/prefer-export-from': unknown
   'unicorn/prefer-global-this': never
   'unicorn/prefer-import-meta-properties': never
   'unicorn/prefer-includes': never
@@ -313,6 +318,7 @@ export interface UnicornRuleOptionsByName {
   'unicorn/prefer-response-static-json': never
   'unicorn/prefer-set-has': never
   'unicorn/prefer-set-size': never
+  'unicorn/prefer-single-call': unknown
   'unicorn/prefer-spread': never
   'unicorn/prefer-string-raw': never
   'unicorn/prefer-string-replace-all': never
