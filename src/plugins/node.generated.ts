@@ -7,9 +7,11 @@ export const NODE_RULE_NAMES = [
   'global-require',
   'handle-callback-err',
   'no-exports-assign',
+  'no-mixed-requires',
   'no-new-require',
   'no-path-concat',
   'no-process-env',
+  'no-sync',
 ] as const
 
 export type NodeRuleName = (typeof NODE_RULE_NAMES)[number]
@@ -19,9 +21,11 @@ export interface NodeRuleOptionsByName {
   'node/global-require': never
   'node/handle-callback-err': string
   'node/no-exports-assign': never
+  'node/no-mixed-requires': unknown
   'node/no-new-require': never
   'node/no-path-concat': never
   'node/no-process-env': {
     allowedVariables?: unknown
   }
+  'node/no-sync': unknown
 }

@@ -17,6 +17,7 @@ export const UNICORN_RULE_NAMES = [
   'explicit-length-check',
   'filename-case',
   'import-style',
+  'max-nested-calls',
   'new-for-builtins',
   'no-abusive-eslint-disable',
   'no-accessor-recursion',
@@ -106,6 +107,7 @@ export const UNICORN_RULE_NAMES = [
   'prefer-native-coercion-functions',
   'prefer-negative-index',
   'prefer-node-protocol',
+  'prefer-number-coercion',
   'prefer-number-properties',
   'prefer-object-from-entries',
   'prefer-optional-catch-binding',
@@ -173,6 +175,7 @@ export interface UnicornRuleOptionsByName {
     multipleFileExtensions?: boolean
   }
   'unicorn/import-style': unknown
+  'unicorn/max-nested-calls': unknown
   'unicorn/new-for-builtins': never
   'unicorn/no-abusive-eslint-disable': never
   'unicorn/no-accessor-recursion': never
@@ -303,6 +306,7 @@ export interface UnicornRuleOptionsByName {
   'unicorn/prefer-native-coercion-functions': never
   'unicorn/prefer-negative-index': never
   'unicorn/prefer-node-protocol': never
+  'unicorn/prefer-number-coercion': unknown
   'unicorn/prefer-number-properties': {
     checkInfinity?: boolean
     checkNaN?: boolean

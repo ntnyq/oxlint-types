@@ -10,6 +10,7 @@ export const VUE_RULE_NAMES = [
   'max-props',
   'next-tick-style',
   'no-arrow-functions-in-watch',
+  'no-async-in-computed-properties',
   'no-computed-properties-in-data',
   'no-deprecated-data-object-declaration',
   'no-deprecated-delete-set',
@@ -64,6 +65,7 @@ export interface VueRuleOptionsByName {
   }
   'vue/next-tick-style': unknown
   'vue/no-arrow-functions-in-watch': never
+  'vue/no-async-in-computed-properties': unknown
   'vue/no-computed-properties-in-data': unknown
   'vue/no-deprecated-data-object-declaration': never
   'vue/no-deprecated-delete-set': never
