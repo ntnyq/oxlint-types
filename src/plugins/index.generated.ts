@@ -1786,9 +1786,7 @@ export interface BuiltinRuleOptionsByName
       allowLineSeparatedGroups?: boolean
     },
   ]
-  'sort-vars': {
-    ignoreCase?: boolean
-  }
+  'sort-vars': unknown
   'symbol-description': never
   'unicode-bom': 'always' | 'never'
   'use-isnan': {
