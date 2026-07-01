@@ -730,7 +730,9 @@ export interface EslintRuleOptionsByName {
       allowLineSeparatedGroups?: boolean
     },
   ]
-  'eslint/sort-vars': unknown
+  'eslint/sort-vars': {
+    ignoreCase?: boolean
+  }
   'eslint/symbol-description': never
   'eslint/unicode-bom': 'always' | 'never'
   'eslint/use-isnan': {
