@@ -136,6 +136,7 @@ export const ESLINT_RULE_NAMES = [
   'no-unmodified-loop-condition',
   'no-unneeded-ternary',
   'no-unreachable',
+  'no-unreachable-loop',
   'no-unsafe-finally',
   'no-unsafe-negation',
   'no-unsafe-optional-chaining',
@@ -594,6 +595,7 @@ export interface EslintRuleOptionsByName {
     defaultAssignment?: boolean
   }
   'eslint/no-unreachable': never
+  'eslint/no-unreachable-loop': unknown
   'eslint/no-unsafe-finally': never
   'eslint/no-unsafe-negation': {
     enforceForOrderingRelations?: boolean

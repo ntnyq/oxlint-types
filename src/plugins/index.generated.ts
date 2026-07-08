@@ -335,6 +335,7 @@ export const BUILTIN_RULE_NAMES = [
   'eslint/no-unmodified-loop-condition',
   'eslint/no-unneeded-ternary',
   'eslint/no-unreachable',
+  'eslint/no-unreachable-loop',
   'eslint/no-unsafe-finally',
   'eslint/no-unsafe-negation',
   'eslint/no-unsafe-optional-chaining',
@@ -678,6 +679,7 @@ export const BUILTIN_RULE_NAMES = [
   'no-unmodified-loop-condition',
   'no-unneeded-ternary',
   'no-unreachable',
+  'no-unreachable-loop',
   'no-unsafe-finally',
   'no-unsafe-negation',
   'no-unsafe-optional-chaining',
@@ -965,6 +967,7 @@ export const BUILTIN_RULE_NAMES = [
   'unicorn/error-message',
   'unicorn/escape-case',
   'unicorn/explicit-length-check',
+  'unicorn/explicit-timer-delay',
   'unicorn/filename-case',
   'unicorn/import-style',
   'unicorn/max-nested-calls',
@@ -981,6 +984,7 @@ export const BUILTIN_RULE_NAMES = [
   'unicorn/no-array-sort',
   'unicorn/no-await-expression-member',
   'unicorn/no-await-in-promise-methods',
+  'unicorn/no-confusing-array-with',
   'unicorn/no-console-spaces',
   'unicorn/no-document-cookie',
   'unicorn/no-empty-file',
@@ -1650,6 +1654,7 @@ export interface BuiltinRuleOptionsByName
     defaultAssignment?: boolean
   }
   'no-unreachable': never
+  'no-unreachable-loop': unknown
   'no-unsafe-finally': never
   'no-unsafe-negation': {
     enforceForOrderingRelations?: boolean

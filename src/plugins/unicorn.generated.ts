@@ -15,6 +15,7 @@ export const UNICORN_RULE_NAMES = [
   'error-message',
   'escape-case',
   'explicit-length-check',
+  'explicit-timer-delay',
   'filename-case',
   'import-style',
   'max-nested-calls',
@@ -31,6 +32,7 @@ export const UNICORN_RULE_NAMES = [
   'no-array-sort',
   'no-await-expression-member',
   'no-await-in-promise-methods',
+  'no-confusing-array-with',
   'no-console-spaces',
   'no-document-cookie',
   'no-empty-file',
@@ -163,6 +165,7 @@ export interface UnicornRuleOptionsByName {
   'unicorn/explicit-length-check': {
     'non-zero'?: 'greater-than' | 'not-equal'
   }
+  'unicorn/explicit-timer-delay': unknown
   'unicorn/filename-case': {
     cases?: {
       kebabCase?: boolean
@@ -195,6 +198,7 @@ export interface UnicornRuleOptionsByName {
   }
   'unicorn/no-await-expression-member': never
   'unicorn/no-await-in-promise-methods': never
+  'unicorn/no-confusing-array-with': unknown
   'unicorn/no-console-spaces': never
   'unicorn/no-document-cookie': never
   'unicorn/no-empty-file': never
