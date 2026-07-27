@@ -12,6 +12,7 @@ export const NODE_RULE_NAMES = [
   'no-path-concat',
   'no-process-env',
   'no-sync',
+  'no-top-level-await',
 ] as const
 
 export type NodeRuleName = (typeof NODE_RULE_NAMES)[number]
@@ -28,4 +29,5 @@ export interface NodeRuleOptionsByName {
     allowedVariables?: unknown
   }
   'node/no-sync': unknown
+  'node/no-top-level-await': unknown
 }

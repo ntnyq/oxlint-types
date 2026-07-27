@@ -11,6 +11,7 @@ export const REACT_RULE_NAMES = [
   'forbid-dom-props',
   'forbid-elements',
   'forward-ref-uses-ref',
+  'function-component-definition',
   'hook-use-state',
   'iframe-missing-sandbox',
   'jsx-boolean-value',
@@ -97,6 +98,7 @@ export interface ReactRuleOptionsByName {
     forbid?: readonly unknown[]
   }
   'react/forward-ref-uses-ref': never
+  'react/function-component-definition': unknown
   'react/hook-use-state': {
     allowDestructuredState?: boolean
   }
