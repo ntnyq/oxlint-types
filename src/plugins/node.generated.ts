@@ -4,6 +4,7 @@
 
 export const NODE_RULE_NAMES = [
   'callback-return',
+  'exports-style',
   'global-require',
   'handle-callback-err',
   'no-exports-assign',
@@ -19,6 +20,7 @@ export type NodeRuleName = (typeof NODE_RULE_NAMES)[number]
 
 export interface NodeRuleOptionsByName {
   'node/callback-return': unknown
+  'node/exports-style': unknown
   'node/global-require': never
   'node/handle-callback-err': string
   'node/no-exports-assign': never

@@ -23,6 +23,7 @@ export const ESLINT_RULE_NAMES = [
   'getter-return',
   'grouped-accessor-pairs',
   'guard-for-in',
+  'id-denylist',
   'id-length',
   'id-match',
   'init-declarations',
@@ -294,6 +295,7 @@ export interface EslintRuleOptionsByName {
     },
   ]
   'eslint/guard-for-in': never
+  'eslint/id-denylist': unknown
   'eslint/id-length': {
     exceptionPatterns?: readonly string[]
     exceptions?: readonly string[]

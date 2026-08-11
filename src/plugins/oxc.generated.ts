@@ -8,6 +8,7 @@ export const OXC_RULE_NAMES = [
   'bad-bitwise-operator',
   'bad-char-at-comparison',
   'bad-comparison-sequence',
+  'bad-match-all-arg',
   'bad-min-max-func',
   'bad-object-literal-comparison',
   'bad-replace-all-arg',
@@ -39,6 +40,7 @@ export interface OxcRuleOptionsByName {
   'oxc/bad-bitwise-operator': never
   'oxc/bad-char-at-comparison': never
   'oxc/bad-comparison-sequence': never
+  'oxc/bad-match-all-arg': unknown
   'oxc/bad-min-max-func': never
   'oxc/bad-object-literal-comparison': never
   'oxc/bad-replace-all-arg': never

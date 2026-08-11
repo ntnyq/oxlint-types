@@ -222,6 +222,7 @@ export const BUILTIN_RULE_NAMES = [
   'eslint/getter-return',
   'eslint/grouped-accessor-pairs',
   'eslint/guard-for-in',
+  'eslint/id-denylist',
   'eslint/id-length',
   'eslint/id-match',
   'eslint/init-declarations',
@@ -394,6 +395,7 @@ export const BUILTIN_RULE_NAMES = [
   'getter-return',
   'grouped-accessor-pairs',
   'guard-for-in',
+  'id-denylist',
   'id-length',
   'id-match',
   'import/consistent-type-specifier-style',
@@ -703,6 +705,7 @@ export const BUILTIN_RULE_NAMES = [
   'no-warning-comments',
   'no-with',
   'node/callback-return',
+  'node/exports-style',
   'node/global-require',
   'node/handle-callback-err',
   'node/no-exports-assign',
@@ -719,6 +722,7 @@ export const BUILTIN_RULE_NAMES = [
   'oxc/bad-bitwise-operator',
   'oxc/bad-char-at-comparison',
   'oxc/bad-comparison-sequence',
+  'oxc/bad-match-all-arg',
   'oxc/bad-min-max-func',
   'oxc/bad-object-literal-comparison',
   'oxc/bad-replace-all-arg',
@@ -1356,6 +1360,7 @@ export interface BuiltinRuleOptionsByName
     },
   ]
   'guard-for-in': never
+  'id-denylist': unknown
   'id-length': {
     exceptionPatterns?: readonly string[]
     exceptions?: readonly string[]
