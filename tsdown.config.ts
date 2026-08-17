@@ -5,9 +5,7 @@ export default defineConfig({
   deps: {
     neverBundle: ['oxlint'],
   },
-  dts: {
-    tsgo: true,
-  },
+  dts: true,
   entry: ['src/index.ts'],
   platform: 'neutral',
 })

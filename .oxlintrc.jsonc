@@ -82,6 +82,7 @@
         "detectObjects": false,
       },
     ],
+    "one-var": ["warn", "never"],
   },
   "overrides": [
     {
