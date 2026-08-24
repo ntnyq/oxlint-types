@@ -8,20 +8,20 @@ import type { CanonicalRule, ParsedRules, RuleItem } from './types'
  */
 export function parseRulesJson(input: string): ParsedRules {
   const rules = JSON.parse(input) as RuleItem[],
-   canonicalByName = new Map<string, CanonicalRule>(),
-   rulesByPlugin = new Map<string, Set<string>>(),
-   allRuleNames = new Set<string>()
+    canonicalByName = new Map<string, CanonicalRule>(),
+    rulesByPlugin = new Map<string, Set<string>>(),
+    allRuleNames = new Set<string>()
 
   for (const rule of rules) {
     const pluginSource = rule.scope,
-     pluginId = normalizePlugin(pluginSource),
-     normalizedName = cleanRuleName(rule.value)
+      pluginId = normalizePlugin(pluginSource),
+      normalizedName = cleanRuleName(rule.value)
     if (!normalizedName) {
       continue
     }
 
     const namespacedRuleName = `${pluginId}/${normalizedName}`,
-     pluginRules = rulesByPlugin.get(pluginId) ?? new Set<string>()
+      pluginRules = rulesByPlugin.get(pluginId) ?? new Set<string>()
     pluginRules.add(normalizedName)
     rulesByPlugin.set(pluginId, pluginRules)
 
@@ -47,13 +47,13 @@ export function parseRulesJson(input: string): ParsedRules {
   }
 
   const pluginNames = [...rulesByPlugin.keys()].toSorted(),
-   sortedRuleNames = [...allRuleNames].toSorted(),
-   sortedRulesByPlugin = Object.fromEntries(
-    pluginNames.map(plugin => [
-      plugin,
-      [...(rulesByPlugin.get(plugin) ?? [])].toSorted(),
-    ]),
-  )
+    sortedRuleNames = [...allRuleNames].toSorted(),
+    sortedRulesByPlugin = Object.fromEntries(
+      pluginNames.map(plugin => [
+        plugin,
+        [...(rulesByPlugin.get(plugin) ?? [])].toSorted(),
+      ]),
+    )
 
   return {
     canonicalRules: [...canonicalByName.values()].toSorted((a, b) =>

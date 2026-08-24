@@ -41,8 +41,8 @@ async function parseOptionTypeForRule(rule: CanonicalRule): Promise<{
   sourceFound: boolean
 }> {
   let optionType = 'unknown',
-   parseError = '',
-   sourceFound = false
+    parseError = '',
+    sourceFound = false
 
   try {
     const ruleSource = await fetchFirstAvailableRuleSource(rule)
@@ -85,7 +85,7 @@ function resolveFinalOptionType(input: {
   rule: CanonicalRule
 }): string {
   const { optionType, previousOptionsByRuleName, report, rule } = input,
-   patched = applyOptionTypeFallback(rule.namespacedRuleName, optionType)
+    patched = applyOptionTypeFallback(rule.namespacedRuleName, optionType)
   if (patched !== 'unknown') {
     return patched
   }
@@ -106,13 +106,13 @@ function pickAliasOptionType(input: {
   rule: CanonicalRule
 }): string {
   const { aliasName, finalOptionType, previousOptionsByRuleName, rule } = input,
-   preservedAliasType =
-    finalOptionType === 'unknown' &&
-    aliasName !== rule.namespacedRuleName &&
-    previousOptionsByRuleName[aliasName] &&
-    previousOptionsByRuleName[aliasName] !== 'unknown'
-      ? previousOptionsByRuleName[aliasName]
-      : undefined
+    preservedAliasType =
+      finalOptionType === 'unknown' &&
+      aliasName !== rule.namespacedRuleName &&
+      previousOptionsByRuleName[aliasName] &&
+      previousOptionsByRuleName[aliasName] !== 'unknown'
+        ? previousOptionsByRuleName[aliasName]
+        : undefined
 
   if (preservedAliasType) {
     return preservedAliasType
@@ -150,29 +150,29 @@ export async function buildRuleOptionsByRuleName(
   report: RuleOptionsBuildReport
 }> {
   const optionsByRuleName: Record<string, string> = {},
-   report: RuleOptionsBuildReport = {
-    errorRules: [],
-    parsedRules: [],
-    preservedUnknownDowngradeRules: [],
-  }
+    report: RuleOptionsBuildReport = {
+      errorRules: [],
+      parsedRules: [],
+      preservedUnknownDowngradeRules: [],
+    }
   let completed = 0,
-   started = 0
+    started = 0
 
   await runPool(parsed.canonicalRules, async rule => {
     const total = parsed.canonicalRules.length,
-     displayName = rule.namespacedRuleName
+      displayName = rule.namespacedRuleName
     started += 1
     // eslint-disable-next-line no-console
     console.log(`Parsing [${started}/${total}] ${displayName} ...`)
 
     const { optionType, parseError, sourceFound } =
-      await parseOptionTypeForRule(rule),
-     finalOptionType = resolveFinalOptionType({
-      optionType,
-      previousOptionsByRuleName,
-      report,
-      rule,
-    })
+        await parseOptionTypeForRule(rule),
+      finalOptionType = resolveFinalOptionType({
+        optionType,
+        previousOptionsByRuleName,
+        report,
+        rule,
+      })
 
     for (const name of rule.ruleNames) {
       optionsByRuleName[name] = pickAliasOptionType({
@@ -191,11 +191,11 @@ export async function buildRuleOptionsByRuleName(
 
     completed += 1
     const status = getParseStatusText(parseError, finalOptionType),
-     preserved = report.preservedUnknownDowngradeRules.includes(
-      rule.namespacedRuleName,
-    )
-      ? ' [preserved previous non-unknown]'
-      : ''
+      preserved = report.preservedUnknownDowngradeRules.includes(
+        rule.namespacedRuleName,
+      )
+        ? ' [preserved previous non-unknown]'
+        : ''
     // eslint-disable-next-line no-console
     console.log(
       `Parsed [${completed}/${total}] ${rule.namespacedRuleName}: ${status}${preserved}`,

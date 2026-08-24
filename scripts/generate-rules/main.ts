@@ -23,20 +23,19 @@ export async function generateRules(): Promise<void> {
 
   try {
     const rulesOutput = execSync(
-      `./node_modules/.bin/oxlint --rules -f json -c ${JSON.stringify(tmpConfigPath)}`,
-      {
-        cwd: ROOT,
-        encoding: 'utf8',
-        stdio: 'pipe',
-      },
-    ),
-
-     parsed = parseRulesJson(rulesOutput),
-     previousOptionsByRuleName = readExistingGeneratedOptionTypes(),
-     { optionsByRuleName, report } = await buildRuleOptionsByRuleName(
-      parsed,
-      previousOptionsByRuleName,
-    )
+        `./node_modules/.bin/oxlint --rules -f json -c ${JSON.stringify(tmpConfigPath)}`,
+        {
+          cwd: ROOT,
+          encoding: 'utf8',
+          stdio: 'pipe',
+        },
+      ),
+      parsed = parseRulesJson(rulesOutput),
+      previousOptionsByRuleName = readExistingGeneratedOptionTypes(),
+      { optionsByRuleName, report } = await buildRuleOptionsByRuleName(
+        parsed,
+        previousOptionsByRuleName,
+      )
     writePluginFiles(parsed, optionsByRuleName)
 
     const knownCount = Object.values(optionsByRuleName).filter(

@@ -116,14 +116,13 @@ function pushPart(parts: string[], value: string): void {
  */
 export function splitTopLevel(input: string, delimiter: string): string[] {
   const parts: string[] = [],
-   state = createNestingState()
+    state = createNestingState()
   let current = ''
 
   for (let index = 0; index < input.length; index += 1) {
     const char = input[index] ?? '',
-     prev = input[index - 1] ?? '',
-
-     touchedString = updateStringState(state, char, prev)
+      prev = input[index - 1] ?? '',
+      touchedString = updateStringState(state, char, prev)
     current += char
     if (touchedString) {
       continue
@@ -189,8 +188,8 @@ export function extractSerdeStringAttr(
       continue
     }
 
-    let value = '',
-     escaped = false
+    let escaped = false,
+      value = ''
     for (let index = quoteIndex + 1; index < attrs.length; index += 1) {
       const char = attrs[index]
       if (escaped) {
@@ -269,10 +268,10 @@ export function applyRenameAll(input: string, rule: string | null): string {
 
   if (rule === 'camelCase') {
     const lowerSnake = input
-      .replaceAll(/([a-z0-9])([A-Z])/gu, '$1_$2')
-      .replaceAll('-', '_')
-      .toLowerCase(),
-     parts = lowerSnake.split('_')
+        .replaceAll(/([a-z0-9])([A-Z])/gu, '$1_$2')
+        .replaceAll('-', '_')
+        .toLowerCase(),
+      parts = lowerSnake.split('_')
     return parts
       .map((part, index) => {
         if (index === 0) {
@@ -307,7 +306,7 @@ export function cleanupRustType(typeText: string): string {
  */
 export function splitGenericArguments(typeText: string): string[] {
   const start = typeText.indexOf('<'),
-   end = typeText.lastIndexOf('>')
+    end = typeText.lastIndexOf('>')
   if (start === -1 || end <= start) {
     return []
   }
@@ -326,9 +325,7 @@ export function unwrapTypeWrapper(
   wrapper: string,
 ): string | null {
   const normalized = cleanupRustType(typeText),
-   match = normalized.match(
-    new RegExp(`^${wrapper}\\s*<([\\s\\S]+)>$`, 'u'),
-  )
+    match = normalized.match(new RegExp(`^${wrapper}\\s*<([\\s\\S]+)>$`, 'u'))
   if (!match?.[1]) {
     return null
   }
@@ -360,12 +357,11 @@ export function stripAttrsAndDoc(segment: string): {
   rest: string
 } {
   const lines = segment
-    .split('\n')
-    .map(line => line.trim())
-    .filter(Boolean),
-
-   attrs: string[] = [],
-   body: string[] = []
+      .split('\n')
+      .map(line => line.trim())
+      .filter(Boolean),
+    attrs: string[] = [],
+    body: string[] = []
 
   for (const line of lines) {
     if (line.startsWith('///') || line.startsWith('//')) {

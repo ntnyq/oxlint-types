@@ -26,19 +26,19 @@ export function parseRustDefinitions(
   source: string,
 ): Map<string, RustDefinition> {
   const definitions = new Map<string, RustDefinition>(),
-   defRegex =
-    /(?<attrs>(?:\s*#\[[^\]]+\]\s*)*)(?:(?:pub(?:\([^)]*\))?)\s+)?(?<kind>struct|enum)\s+(?<name>[A-Za-z_][A-Za-z0-9_]*)[^;{(]*?(?<open>[{(;])/gmu
+    defRegex =
+      /(?<attrs>(?:\s*#\[[^\]]+\]\s*)*)(?:(?:pub(?:\([^)]*\))?)\s+)?(?<kind>struct|enum)\s+(?<name>[A-Za-z_][A-Za-z0-9_]*)[^;{(]*?(?<open>[{(;])/gmu
 
   for (const match of source.matchAll(defRegex)) {
     const groups = match.groups,
-     kind = groups?.['kind'] as 'enum' | 'struct' | undefined,
-     name = groups?.['name'],
-     open = groups?.['open'],
-     attrs = (groups?.['attrs'] ?? '').trim(),
-     start = match.index ?? 0,
-     matchText = match[0] ?? '',
-     openOffset = open ? matchText.lastIndexOf(open) : -1,
-     openIndex = openOffset >= 0 ? start + openOffset : -1
+      kind = groups?.['kind'] as 'enum' | 'struct' | undefined,
+      name = groups?.['name'],
+      open = groups?.['open'],
+      attrs = (groups?.['attrs'] ?? '').trim(),
+      start = match.index ?? 0,
+      matchText = match[0] ?? '',
+      openOffset = open ? matchText.lastIndexOf(open) : -1,
+      openIndex = openOffset >= 0 ? start + openOffset : -1
 
     if (!kind || !name || !open || openIndex < 0) {
       continue
@@ -56,7 +56,7 @@ export function parseRustDefinitions(
 
     const closeChar = open === '{' ? '}' : ')'
     let depth = 0,
-     end = -1
+      end = -1
     for (let index = openIndex; index < source.length; index += 1) {
       const char = source[index]
       if (char === open) {
@@ -92,13 +92,13 @@ export function parseRustDefinitions(
  */
 export function parseRustTypeAliases(source: string): Map<string, string> {
   const aliases = new Map<string, string>(),
-   aliasRegex =
-    /(?:(?:pub(?:\([^)]*\))?)\s+)?type\s+([A-Za-z_][A-Za-z0-9_]*)(?:\s*<[^>]+>)?\s*=\s*([^;]+);/gmu
+    aliasRegex =
+      /(?:(?:pub(?:\([^)]*\))?)\s+)?type\s+([A-Za-z_][A-Za-z0-9_]*)(?:\s*<[^>]+>)?\s*=\s*([^;]+);/gmu
 
   for (const match of source.matchAll(aliasRegex)) {
     const full = match[0] ?? '',
-     aliasName = match[1]?.trim(),
-     aliasValue = match[2]?.trim()
+      aliasName = match[1]?.trim(),
+      aliasValue = match[2]?.trim()
     if (!aliasName || !aliasValue) {
       continue
     }
@@ -121,17 +121,17 @@ function parseEnumUnitVariants(definition: RustDefinition): {
   }
 
   const segments = splitTopLevel(stripDocCommentLines(definition.body), ','),
-   values: string[] = []
+    values: string[] = []
 
   for (const segment of segments) {
     const { attrs, rest } = stripAttrsAndDoc(segment),
-     variantMatch = rest.match(/^(?:pub\s+)?([A-Za-z_][A-Za-z0-9_]*)$/u)
+      variantMatch = rest.match(/^(?:pub\s+)?([A-Za-z_][A-Za-z0-9_]*)$/u)
     if (!variantMatch?.[1]) {
       continue
     }
 
     const variantName = variantMatch[1],
-     renamed = extractRename(attrs)
+      renamed = extractRename(attrs)
     values.push(renamed ?? applyRenameAll(variantName, renameAll))
   }
 
@@ -161,8 +161,8 @@ function convertStructToTs(
   }
 
   const renameAll = extractRenameAll(definition.attrs),
-   segments = splitTopLevel(stripDocCommentLines(definition.body), ','),
-   props: string[] = []
+    segments = splitTopLevel(stripDocCommentLines(definition.body), ','),
+    props: string[] = []
 
   for (const segment of segments) {
     const { attrs, rest } = stripAttrsAndDoc(segment)
@@ -177,11 +177,11 @@ function convertStructToTs(
     }
 
     const fieldName = fieldMatch[1],
-     fieldTypeText = cleanupRustType(fieldMatch[2]),
-     optionInner = unwrapTypeWrapper(fieldTypeText, 'Option'),
-     tsType = rustTypeToTsImpl(optionInner ?? fieldTypeText, ctx),
-     serializedName =
-      extractRename(attrs) ?? applyRenameAll(fieldName, renameAll)
+      fieldTypeText = cleanupRustType(fieldMatch[2]),
+      optionInner = unwrapTypeWrapper(fieldTypeText, 'Option'),
+      tsType = rustTypeToTsImpl(optionInner ?? fieldTypeText, ctx),
+      serializedName =
+        extractRename(attrs) ?? applyRenameAll(fieldName, renameAll)
 
     props.push(`  ${JSON.stringify(serializedName)}?: ${tsType}`)
   }
@@ -298,7 +298,7 @@ export function rustTypeToTs(typeText: string, ctx: RustTypeContext): string {
 
   if (/^(HashMap|BTreeMap)\s*</u.test(normalized)) {
     const args = splitGenericArguments(normalized),
-     valueType = args[1] ? rustTypeToTsImpl(args[1], ctx) : 'unknown'
+      valueType = args[1] ? rustTypeToTsImpl(args[1], ctx) : 'unknown'
     return `Record<string, ${valueType}>`
   }
 
@@ -348,9 +348,9 @@ rustTypeToTsImpl = rustTypeToTs
  */
 export function extractConfigTypeName(source: string): string | null {
   const match = source.match(
-    /declare_oxc_lint!\([\s\S]*?config\s*=\s*([A-Za-z_][A-Za-z0-9_:]*)/u,
-  ),
-   configPath = match?.[1]
+      /declare_oxc_lint!\([\s\S]*?config\s*=\s*([A-Za-z_][A-Za-z0-9_:]*)/u,
+    ),
+    configPath = match?.[1]
   if (!configPath) {
     return null
   }
@@ -373,8 +373,8 @@ export function parseRuleOptionsTypeFromRust(
   }
 
   const sources = [mainSource, ...extraSources],
-   definitions = new Map<string, RustDefinition>(),
-   typeAliases = new Map<string, string>()
+    definitions = new Map<string, RustDefinition>(),
+    typeAliases = new Map<string, string>()
 
   for (const source of sources) {
     for (const [name, definition] of parseRustDefinitions(source)) {
@@ -386,12 +386,11 @@ export function parseRuleOptionsTypeFromRust(
   }
 
   const ctx: RustTypeContext = {
-    cache: new Map<string, string>(),
-    definitions,
-    typeAliases,
-    visiting: new Set<string>(),
-  },
-
-   resolved = resolveNamedType(configTypeName, ctx)
+      cache: new Map<string, string>(),
+      definitions,
+      typeAliases,
+      visiting: new Set<string>(),
+    },
+    resolved = resolveNamedType(configTypeName, ctx)
   return resolved ?? 'unknown'
 }
