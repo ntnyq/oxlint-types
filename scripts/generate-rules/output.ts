@@ -31,16 +31,16 @@ export function buildPluginGeneratedFileContent(
   pluginRules: string[],
   optionsByRuleName: Record<string, string>,
 ): string {
-  const pascal = toPascalCase(pluginName)
-  const constPrefix = toUpperSnakeCase(pluginName)
-  const constName = `${constPrefix}_RULE_NAMES`
-  const ruleNameTypeName = `${pascal}RuleName`
-  const optionsTypeName = `${pascal}RuleOptionsByName`
+  const pascal = toPascalCase(pluginName),
+   constPrefix = toUpperSnakeCase(pluginName),
+   constName = `${constPrefix}_RULE_NAMES`,
+   ruleNameTypeName = `${pascal}RuleName`,
+   optionsTypeName = `${pascal}RuleOptionsByName`,
 
-  const namespacedRules = pluginRules.map(
+   namespacedRules = pluginRules.map(
     ruleName => `${pluginName}/${ruleName}`,
-  )
-  const optionsBody = namespacedRules
+  ),
+   optionsBody = namespacedRules
     .map(ruleName => {
       const optionType = optionsByRuleName[ruleName] ?? 'unknown'
       return `  ${JSON.stringify(ruleName)}: ${optionType}`
@@ -72,30 +72,30 @@ export function buildPluginsIndexFileContent(
 ): string {
   const imports = parsed.pluginNames
     .map(pluginName => {
-      const pascal = toPascalCase(pluginName)
-      const constName = `${toUpperSnakeCase(pluginName)}_RULE_NAMES`
-      const optionsTypeName = `${pascal}RuleOptionsByName`
-      const ruleNameTypeName = `${pascal}RuleName`
+      const pascal = toPascalCase(pluginName),
+       constName = `${toUpperSnakeCase(pluginName)}_RULE_NAMES`,
+       optionsTypeName = `${pascal}RuleOptionsByName`,
+       ruleNameTypeName = `${pascal}RuleName`
       return `import { ${constName} } from './${pluginName}.generated'
 import type { ${optionsTypeName}, ${ruleNameTypeName} } from './${pluginName}.generated'`
     })
-    .join('\n')
+    .join('\n'),
 
-  const pluginNamesConst = toTsArray('BUILTIN_PLUGIN_NAMES', parsed.pluginNames)
-  const ruleNamesConst = toTsArray('BUILTIN_RULE_NAMES', parsed.sortedRuleNames)
+   pluginNamesConst = toTsArray('BUILTIN_PLUGIN_NAMES', parsed.pluginNames),
+   ruleNamesConst = toTsArray('BUILTIN_RULE_NAMES', parsed.sortedRuleNames),
 
-  const rulesByPluginBody = parsed.pluginNames
+   rulesByPluginBody = parsed.pluginNames
     .map(pluginName => {
       const constName = `${toUpperSnakeCase(pluginName)}_RULE_NAMES`
       return `  ${JSON.stringify(pluginName)}: ${constName},`
     })
-    .join('\n')
+    .join('\n'),
 
-  const optionsExtends = parsed.pluginNames
+   optionsExtends = parsed.pluginNames
     .map(pluginName => `${toPascalCase(pluginName)}RuleOptionsByName`)
-    .join(', ')
+    .join(', '),
 
-  const aliasLines = parsed.canonicalRules
+   aliasLines = parsed.canonicalRules
     .flatMap(rule => {
       const namespaced = rule.namespacedRuleName
       return rule.ruleNames
@@ -109,9 +109,9 @@ import type { ${optionsTypeName}, ${ruleNameTypeName} } from './${pluginName}.ge
           return `  ${JSON.stringify(alias)}: ${optionType}`
         })
     })
-    .join('\n')
+    .join('\n'),
 
-  const ruleUnion = parsed.pluginNames
+   ruleUnion = parsed.pluginNames
     .map(pluginName => `${toPascalCase(pluginName)}RuleName`)
     .join(' | ')
 
@@ -187,9 +187,9 @@ export function writePluginFiles(
   }
 
   for (const pluginName of parsed.pluginNames) {
-    const pluginRules = parsed.sortedRulesByPlugin[pluginName] ?? []
-    const pluginFilePath = path.join(PLUGINS_DIR, `${pluginName}.generated.ts`)
-    const content = buildPluginGeneratedFileContent(
+    const pluginRules = parsed.sortedRulesByPlugin[pluginName] ?? [],
+     pluginFilePath = path.join(PLUGINS_DIR, `${pluginName}.generated.ts`),
+     content = buildPluginGeneratedFileContent(
       pluginName,
       pluginRules,
       optionsByRuleName,
@@ -222,26 +222,26 @@ export function readExistingGeneratedOptionTypes(): Record<string, string> {
   const files = fs
     .readdirSync(PLUGINS_DIR, { withFileTypes: true })
     .filter(entry => entry.isFile() && entry.name.endsWith('.generated.ts'))
-    .map(entry => path.join(PLUGINS_DIR, entry.name))
+    .map(entry => path.join(PLUGINS_DIR, entry.name)),
 
-  const map: Record<string, string> = {}
+   map: Record<string, string> = {}
   for (const filePath of files) {
-    const content = fs.readFileSync(filePath, 'utf8')
-    const interfaces = [
+    const content = fs.readFileSync(filePath, 'utf8'),
+     interfaces = [
       ...content.matchAll(/export interface [^{]+\{([\s\S]*?)\n\}/gmu),
     ]
     for (const iface of interfaces) {
-      const body = iface[1] ?? ''
-      const entryRegex = /\s{2}("([^"]+)"):\s/gmu
+      const body = iface[1] ?? '',
+       entryRegex = /\s{2}("([^"]+)"):\s/gmu
       let match = entryRegex.exec(body)
 
       while (match) {
-        const fullMatch = match[0]
-        const ruleName = match[2]
-        const typeStart = match.index + fullMatch.length
-        const next = entryRegex.exec(body)
-        const typeEnd = next ? next.index : body.length
-        const optionType = body.slice(typeStart, typeEnd).trim()
+        const fullMatch = match[0],
+         ruleName = match[2],
+         typeStart = match.index + fullMatch.length,
+         next = entryRegex.exec(body),
+         typeEnd = next ? next.index : body.length,
+         optionType = body.slice(typeStart, typeEnd).trim()
         if (ruleName && optionType) {
           map[ruleName] = optionType
         }

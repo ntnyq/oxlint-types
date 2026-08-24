@@ -115,15 +115,15 @@ function pushPart(parts: string[], value: string): void {
  * @returns Trimmed parts split at top-level delimiter occurrences.
  */
 export function splitTopLevel(input: string, delimiter: string): string[] {
-  const parts: string[] = []
-  const state = createNestingState()
+  const parts: string[] = [],
+   state = createNestingState()
   let current = ''
 
   for (let index = 0; index < input.length; index += 1) {
-    const char = input[index] ?? ''
-    const prev = input[index - 1] ?? ''
+    const char = input[index] ?? '',
+     prev = input[index - 1] ?? '',
 
-    const touchedString = updateStringState(state, char, prev)
+     touchedString = updateStringState(state, char, prev)
     current += char
     if (touchedString) {
       continue
@@ -189,8 +189,8 @@ export function extractSerdeStringAttr(
       continue
     }
 
-    let value = ''
-    let escaped = false
+    let value = '',
+     escaped = false
     for (let index = quoteIndex + 1; index < attrs.length; index += 1) {
       const char = attrs[index]
       if (escaped) {
@@ -271,8 +271,8 @@ export function applyRenameAll(input: string, rule: string | null): string {
     const lowerSnake = input
       .replaceAll(/([a-z0-9])([A-Z])/gu, '$1_$2')
       .replaceAll('-', '_')
-      .toLowerCase()
-    const parts = lowerSnake.split('_')
+      .toLowerCase(),
+     parts = lowerSnake.split('_')
     return parts
       .map((part, index) => {
         if (index === 0) {
@@ -306,8 +306,8 @@ export function cleanupRustType(typeText: string): string {
  * @returns Top-level generic argument list.
  */
 export function splitGenericArguments(typeText: string): string[] {
-  const start = typeText.indexOf('<')
-  const end = typeText.lastIndexOf('>')
+  const start = typeText.indexOf('<'),
+   end = typeText.lastIndexOf('>')
   if (start === -1 || end <= start) {
     return []
   }
@@ -325,8 +325,8 @@ export function unwrapTypeWrapper(
   typeText: string,
   wrapper: string,
 ): string | null {
-  const normalized = cleanupRustType(typeText)
-  const match = normalized.match(
+  const normalized = cleanupRustType(typeText),
+   match = normalized.match(
     new RegExp(`^${wrapper}\\s*<([\\s\\S]+)>$`, 'u'),
   )
   if (!match?.[1]) {
@@ -362,10 +362,10 @@ export function stripAttrsAndDoc(segment: string): {
   const lines = segment
     .split('\n')
     .map(line => line.trim())
-    .filter(Boolean)
+    .filter(Boolean),
 
-  const attrs: string[] = []
-  const body: string[] = []
+   attrs: string[] = [],
+   body: string[] = []
 
   for (const line of lines) {
     if (line.startsWith('///') || line.startsWith('//')) {

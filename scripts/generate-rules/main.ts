@@ -29,11 +29,11 @@ export async function generateRules(): Promise<void> {
         encoding: 'utf8',
         stdio: 'pipe',
       },
-    )
+    ),
 
-    const parsed = parseRulesJson(rulesOutput)
-    const previousOptionsByRuleName = readExistingGeneratedOptionTypes()
-    const { optionsByRuleName, report } = await buildRuleOptionsByRuleName(
+     parsed = parseRulesJson(rulesOutput),
+     previousOptionsByRuleName = readExistingGeneratedOptionTypes(),
+     { optionsByRuleName, report } = await buildRuleOptionsByRuleName(
       parsed,
       previousOptionsByRuleName,
     )
