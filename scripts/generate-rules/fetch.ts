@@ -15,8 +15,8 @@ import type { CanonicalRule, RuleSource } from './types'
  * @returns Candidate Rust file URLs to try in order.
  */
 export function getRustRuleUrlCandidates(rule: CanonicalRule): string[] {
-  const pluginSource = rule.pluginSource
-  const rustRuleName = toSnakeCase(rule.ruleName)
+  const pluginSource = rule.pluginSource,
+    rustRuleName = toSnakeCase(rule.ruleName)
   return [
     `${RUST_RULES_BASE_URL}/${pluginSource}/${rustRuleName}.rs`,
     `${RUST_RULES_BASE_URL}/${pluginSource}/${rustRuleName}/mod.rs`,
@@ -69,12 +69,10 @@ export function getRuleModuleSiblingUrls(
     return []
   }
 
-  const dir = ruleFileUrl.slice(0, -'mod.rs'.length)
-  const modules = [
-    ...source.matchAll(/(?:pub\s+)?mod\s+([a-z_][a-z0-9_]*)\s*;/gmu),
-  ]
-    .flatMap(match => (match[1] ? [match[1]] : []))
-    .filter(name => name.includes('option') || name.includes('config'))
+  const dir = ruleFileUrl.slice(0, -'mod.rs'.length),
+    modules = [...source.matchAll(/(?:pub\s+)?mod\s+([a-z_][a-z0-9_]*)\s*;/gmu)]
+      .flatMap(match => (match[1] ? [match[1]] : []))
+      .filter(name => name.includes('option') || name.includes('config'))
 
   return modules.map(moduleName => `${dir}${moduleName}.rs`)
 }
@@ -115,19 +113,19 @@ export async function runPool<T>(
   items: T[],
   worker: (item: T) => Promise<void>,
 ): Promise<void> {
-  const queue = [...items]
-  const runners = Array.from(
-    { length: Math.min(FETCH_CONCURRENCY, queue.length) },
-    async () => {
-      while (queue.length > 0) {
-        const item = queue.shift()
-        if (item === undefined) {
-          return
+  const queue = [...items],
+    runners = Array.from(
+      { length: Math.min(FETCH_CONCURRENCY, queue.length) },
+      async () => {
+        while (queue.length > 0) {
+          const item = queue.shift()
+          if (item === undefined) {
+            return
+          }
+          await worker(item)
         }
-        await worker(item)
-      }
-    },
-  )
+      },
+    )
 
   await Promise.all(runners)
 }
