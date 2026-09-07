@@ -161,6 +161,7 @@ export const ESLINT_RULE_NAMES = [
   'no-warning-comments',
   'no-with',
   'object-shorthand',
+  'one-var',
   'operator-assignment',
   'prefer-arrow-callback',
   'prefer-const',
@@ -680,6 +681,7 @@ export interface EslintRuleOptionsByName {
       methodsIgnorePattern?: string
     },
   ]
+  'eslint/one-var': unknown
   'eslint/operator-assignment': 'always' | 'never'
   'eslint/prefer-arrow-callback': unknown
   'eslint/prefer-const': {

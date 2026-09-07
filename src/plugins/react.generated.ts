@@ -4,16 +4,24 @@
 
 export const REACT_RULE_NAMES = [
   'button-has-type',
+  'capitalized-calls',
   'checked-requires-onchange-or-readonly',
   'display-name',
+  'error-boundaries',
   'exhaustive-deps',
+  'exhaustive-effect-dependencies',
   'forbid-component-props',
   'forbid-dom-props',
   'forbid-elements',
   'forward-ref-uses-ref',
   'function-component-definition',
+  'globals',
   'hook-use-state',
+  'hooks',
   'iframe-missing-sandbox',
+  'immutability',
+  'incompatible-library',
+  'invariant',
   'jsx-boolean-value',
   'jsx-curly-brace-presence',
   'jsx-filename-extension',
@@ -32,11 +40,13 @@ export const REACT_RULE_NAMES = [
   'jsx-pascal-case',
   'jsx-props-no-spread-multi',
   'jsx-props-no-spreading',
+  'memo-dependencies',
   'no-array-index-key',
   'no-children-prop',
   'no-clone-element',
   'no-danger',
   'no-danger-with-children',
+  'no-deriving-state-in-effects',
   'no-did-mount-set-state',
   'no-did-update-set-state',
   'no-direct-mutation-state',
@@ -59,14 +69,25 @@ export const REACT_RULE_NAMES = [
   'only-export-components',
   'prefer-es6-class',
   'prefer-function-component',
-  'react-compiler',
+  'preserve-manual-memoization',
+  'purity',
   'react-in-jsx-scope',
+  'refs',
   'require-render-return',
+  'rule-suppression',
   'rules-of-hooks',
   'self-closing-comp',
+  'set-state-in-effect',
+  'set-state-in-render',
   'state-in-constructor',
+  'static-components',
   'style-prop-object',
+  'syntax',
+  'todo',
+  'unsupported-syntax',
+  'use-memo',
   'void-dom-elements-no-children',
+  'void-use-memo',
 ] as const
 
 export type ReactRuleName = (typeof REACT_RULE_NAMES)[number]
@@ -77,6 +98,7 @@ export interface ReactRuleOptionsByName {
     submit?: boolean
     reset?: boolean
   }
+  'react/capitalized-calls': unknown
   'react/checked-requires-onchange-or-readonly': {
     ignoreMissingProperties?: boolean
     ignoreExclusiveCheckedAttribute?: boolean
@@ -85,9 +107,11 @@ export interface ReactRuleOptionsByName {
     ignoreTranspilerName?: boolean
     checkContextObjects?: boolean
   }
+  'react/error-boundaries': unknown
   'react/exhaustive-deps': {
     additionalHooks?: string
   }
+  'react/exhaustive-effect-dependencies': unknown
   'react/forbid-component-props': {
     forbid?: readonly unknown[]
   }
@@ -99,10 +123,15 @@ export interface ReactRuleOptionsByName {
   }
   'react/forward-ref-uses-ref': never
   'react/function-component-definition': unknown
+  'react/globals': unknown
   'react/hook-use-state': {
     allowDestructuredState?: boolean
   }
+  'react/hooks': unknown
   'react/iframe-missing-sandbox': never
+  'react/immutability': unknown
+  'react/incompatible-library': unknown
+  'react/invariant': unknown
   'react/jsx-boolean-value': readonly [
     'always' | 'never',
     {
@@ -171,11 +200,13 @@ export interface ReactRuleOptionsByName {
     explicitSpread?: 'ignore' | 'enforce'
     exceptions?: readonly string[]
   }
+  'react/memo-dependencies': unknown
   'react/no-array-index-key': never
   'react/no-children-prop': never
   'react/no-clone-element': never
   'react/no-danger': never
   'react/no-danger-with-children': never
+  'react/no-deriving-state-in-effects': unknown
   'react/no-did-mount-set-state': 'allowed' | 'disallow-in-func'
   'react/no-did-update-set-state': 'allowed' | 'disallow-in-func'
   'react/no-direct-mutation-state': never
@@ -214,17 +245,28 @@ export interface ReactRuleOptionsByName {
     allowErrorBoundary?: boolean
     allowJsxUtilityClass?: boolean
   }
-  'react/react-compiler': unknown
+  'react/preserve-manual-memoization': unknown
+  'react/purity': unknown
   'react/react-in-jsx-scope': never
+  'react/refs': unknown
   'react/require-render-return': never
+  'react/rule-suppression': unknown
   'react/rules-of-hooks': never
   'react/self-closing-comp': {
     component?: boolean
     html?: boolean
   }
+  'react/set-state-in-effect': unknown
+  'react/set-state-in-render': unknown
   'react/state-in-constructor': 'always' | 'never'
+  'react/static-components': unknown
   'react/style-prop-object': {
     allow?: readonly string[]
   }
+  'react/syntax': unknown
+  'react/todo': unknown
+  'react/unsupported-syntax': unknown
+  'react/use-memo': unknown
   'react/void-dom-elements-no-children': never
+  'react/void-use-memo': unknown
 }

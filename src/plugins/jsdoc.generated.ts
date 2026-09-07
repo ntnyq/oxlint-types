@@ -8,6 +8,7 @@ export const JSDOC_RULE_NAMES = [
   'check-tag-names',
   'empty-tags',
   'implements-on-classes',
+  'no-blank-blocks',
   'no-defaults',
   'require-param',
   'require-param-description',
@@ -41,6 +42,7 @@ export interface JsdocRuleOptionsByName {
     tags?: readonly string[]
   }
   'jsdoc/implements-on-classes': never
+  'jsdoc/no-blank-blocks': unknown
   'jsdoc/no-defaults': {
     noOptionalParamNames?: boolean
   }
