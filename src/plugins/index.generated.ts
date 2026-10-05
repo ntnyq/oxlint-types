@@ -113,6 +113,7 @@ export const BUILTIN_RULE_NAMES = [
   '@typescript-eslint/no-extraneous-class',
   '@typescript-eslint/no-floating-promises',
   '@typescript-eslint/no-for-in-array',
+  '@typescript-eslint/no-generated-empty-object-type',
   '@typescript-eslint/no-implied-eval',
   '@typescript-eslint/no-import-type-side-effects',
   '@typescript-eslint/no-inferrable-types',
@@ -908,6 +909,7 @@ export const BUILTIN_RULE_NAMES = [
   'typescript/no-extraneous-class',
   'typescript/no-floating-promises',
   'typescript/no-for-in-array',
+  'typescript/no-generated-empty-object-type',
   'typescript/no-implied-eval',
   'typescript/no-import-type-side-effects',
   'typescript/no-inferrable-types',
@@ -1965,6 +1967,7 @@ export interface BuiltinRuleOptionsByName
     ignoreVoid?: boolean
   }
   '@typescript-eslint/no-for-in-array': never
+  '@typescript-eslint/no-generated-empty-object-type': unknown
   '@typescript-eslint/no-implied-eval': never
   '@typescript-eslint/no-import-type-side-effects': never
   '@typescript-eslint/no-inferrable-types': {

@@ -37,6 +37,7 @@ export const TYPESCRIPT_RULE_NAMES = [
   'no-extraneous-class',
   'no-floating-promises',
   'no-for-in-array',
+  'no-generated-empty-object-type',
   'no-implied-eval',
   'no-import-type-side-effects',
   'no-inferrable-types',
@@ -237,6 +238,7 @@ export interface TypescriptRuleOptionsByName {
     ignoreVoid?: boolean
   }
   'typescript/no-for-in-array': never
+  'typescript/no-generated-empty-object-type': unknown
   'typescript/no-implied-eval': never
   'typescript/no-import-type-side-effects': never
   'typescript/no-inferrable-types': {
