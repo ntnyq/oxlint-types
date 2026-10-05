@@ -2,7 +2,7 @@
   "name": "@oxlint-types/define-config",
   "type": "module",
   "version": "0.0.15",
-  "packageManager": "pnpm@12.5.1",
+  "packageManager": "pnpm@12.7.0",
   "description": "Strong typed `defineConfig` function support for oxlint.",
   "keywords": [
     "oxlint",
@@ -52,17 +52,17 @@
   },
   "devDependencies": {
     "@ntnyq/tsconfig": "^3.1.0",
-    "@types/node": "^26.6.2",
+    "@types/node": "^26.6.3",
     "bumpp": "^12.3.0",
     "husky": "^9.1.7",
     "nano-staged": "^1.0.2",
     "npm-run-all2": "^9.0.3",
-    "oxfmt": "^0.68.0",
-    "oxlint": "^1.83.0",
+    "oxfmt": "^0.70.0",
+    "oxlint": "^1.85.0",
     "tsdown": "^0.23.0",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2",
-    "vitest": "^5.0.1"
+    "vitest": "^5.0.2"
   },
   "nano-staged": {
     "*.{js,ts,mjs,tsx,vue}": "oxlint --fix",
