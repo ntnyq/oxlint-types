@@ -69,6 +69,7 @@ export const TYPESCRIPT_RULE_NAMES = [
   'no-unsafe-assignment',
   'no-unsafe-call',
   'no-unsafe-declaration-merging',
+  'no-unsafe-enum-assignment',
   'no-unsafe-enum-comparison',
   'no-unsafe-function-type',
   'no-unsafe-member-access',
@@ -303,6 +304,7 @@ export interface TypescriptRuleOptionsByName {
   'typescript/no-unsafe-assignment': never
   'typescript/no-unsafe-call': never
   'typescript/no-unsafe-declaration-merging': never
+  'typescript/no-unsafe-enum-assignment': unknown
   'typescript/no-unsafe-enum-comparison': never
   'typescript/no-unsafe-function-type': never
   'typescript/no-unsafe-member-access': {

@@ -145,6 +145,7 @@ export const BUILTIN_RULE_NAMES = [
   '@typescript-eslint/no-unsafe-assignment',
   '@typescript-eslint/no-unsafe-call',
   '@typescript-eslint/no-unsafe-declaration-merging',
+  '@typescript-eslint/no-unsafe-enum-assignment',
   '@typescript-eslint/no-unsafe-enum-comparison',
   '@typescript-eslint/no-unsafe-function-type',
   '@typescript-eslint/no-unsafe-member-access',
@@ -941,6 +942,7 @@ export const BUILTIN_RULE_NAMES = [
   'typescript/no-unsafe-assignment',
   'typescript/no-unsafe-call',
   'typescript/no-unsafe-declaration-merging',
+  'typescript/no-unsafe-enum-assignment',
   'typescript/no-unsafe-enum-comparison',
   'typescript/no-unsafe-function-type',
   'typescript/no-unsafe-member-access',
@@ -2032,6 +2034,7 @@ export interface BuiltinRuleOptionsByName
   '@typescript-eslint/no-unsafe-assignment': never
   '@typescript-eslint/no-unsafe-call': never
   '@typescript-eslint/no-unsafe-declaration-merging': never
+  '@typescript-eslint/no-unsafe-enum-assignment': unknown
   '@typescript-eslint/no-unsafe-enum-comparison': never
   '@typescript-eslint/no-unsafe-function-type': never
   '@typescript-eslint/no-unsafe-member-access': {
